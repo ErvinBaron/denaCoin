@@ -1,4 +1,4 @@
-document.getElementById("registerForm").addEventListener("submit", async (event) => {
+document.getElementById("registrationForm").addEventListener("submit", async (event) => {
     event.preventDefault();
 
     // Get values from the form inputs
