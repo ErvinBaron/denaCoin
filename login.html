@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="stylehome.css">
+    <link rel="stylesheet" href="stylelogin.css">
     <title>DENA crypto</title>
 </head>
 
@@ -22,7 +22,7 @@
             <!-- Right section -->
             <div class="auth-section">
                 <button class="auth-button login">Login</button>
-                <button class="auth-button signup"><a href="./register.html">Sign Up</a></button>
+                <button class="auth-button signup">Sign Up</button>
                 <div class="hamburger">
                     <span></span>
                     <span></span>
@@ -35,29 +35,27 @@
     <main class="dotted-background">
         <div class="star-dots"></div>
         <div class="main_container purple-glow cosmic-border">
-            <div class="coin_FTL">
-
-            </div>
-            <div class="coin_exp">
-                <div class="FTL_title">FTL</div>
-                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vestibulum ipsum quis diam auctor convallis. In hac habitasse platea dictumst. Praesent consequat dolor sit amet rutrum commodo. Suspendisse sit amet arcu nisl. Nulla ligula lacus, rutrum sed tristique non, sodales vestibulum magna. Quisque ullamcorper tellus ornare varius hendrerit. Aliquam laoreet nec nulla eu ultrices. Curabitur vehicula ex non varius ornare. Sed sed libero tempus lacus consectetur posuere ut ac tortor. Quisque posuere enim quis diam venenatis, vel commodo tellus feugiat. Praesent sit amet dui nec lacus blandit ultricies.
-
+            <div class="register_container">
+                <div class="register_form">
+                    <h2 class="form_title">Join DENA</h2>
+                    <form id="loginForm">
+                        
+                        <div class="form_group">
+                            <label class="form_label" for="email">Email</label>
+                            <input type="email" id="email" class="form_input" required>
+                        </div>
+                        
+                        <div class="form_group">
+                            <label class="form_label" for="password">Password</label>
+                            <input type="password" id="password" class="form_input" required>
+                        </div>
+                        
+                        <button type="submit" class="form_button">Login</button>
+                    </form>
+                    <div id="successMessage" class="success_message">
+                        Registration successful! Welcome to DENA!
                     </div>
-                <div>Fusce pellentesque interdum turpis eu cursus. Maecenas eget laoreet dolor. Aenean auctor odio ut justo tincidunt placerat. Maecenas tempor tincidunt ante quis suscipit. In ante dolor, hendrerit in facilisis ac, dictum at libero. Praesent accumsan suscipit dui hendrerit gravida. Cras elit purus, scelerisque nec suscipit et, bibendum cursus libero. Morbi blandit, enim ut pulvinar ultrices, libero justo ultricies dui, sed viverra felis leo nec ex. Nunc consectetur at erat in sagittis. Suspendisse sed dui orci. Pellentesque et euismod quam.</div>
-            </div>
-        </div>
-        <div class="features_container">
-            <div class="box purple-glow cosmic-border">
-                <h2>Military Grade Encyption</h2>
-                <p>Fortified by battle-tested encryption protocols that stand guard over your assets.</p>
-            </div>
-            <div class="box purple-glow cosmic-border">
-                <h2>Faster then Light</h2>
-                <p>Quantum-speed transactions that redefine the meaning of instant - DENAbreaks barriers.</p>
-            </div>
-            <div class="box purple-glow cosmic-border">
-                <h2>Secure & anonymous</h2>
-                <p>Experience unparalleled privacy with DENA Coin.</p>
+                </div>
             </div>
         </div>
     </main>
@@ -94,7 +92,7 @@
     </footer>
     <div class="hamburger-menu">
         <ul>
-            <li><a href="#home">Home</a></li>
+            <li><a href="./index.html">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -104,6 +102,6 @@
     <div class="hamburger-overlay"></div>
 </body>
 <script src="script.js"></script>
+<script src = "login.js"></script>
 
 </html>
-

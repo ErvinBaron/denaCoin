@@ -16,7 +16,7 @@ document.getElementById("loginForm").addEventListener("submit", async (event) =>
 
 async function sendLoginData(email, password) {
     try {
-        const response = await fetch("http://localhost:8000/register", {
+        const response = await fetch("http://localhost:8000/login", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
