@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylewallet.css">
+    <title>DENA crypto | About</title>
+</head>
+
+<body class="cosmic-gradient">
+    <header class="header-container">
+        <nav class="nav-content">
+            <!-- Left section -->
+            <div class="logo-section">
+                <div class="star"></div>
+                <span class="logo-text">DENA</span>
+            </div>
+
+
+            <!-- Right section -->
+            <div class="auth-section">
+                <button class="auth-button login">Login</button>
+                <button class="auth-button signup">Sign Up</button>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="dotted-background">
+        <div class="star-dots"></div>
+        <div class="main_container purple-glow cosmic-border">
+            <div class="wallet_container random_stars">
+                <div class="hello_div"></div>
+                <div class="balance_container">
+                    <h2>Your Balance</h2>
+                    <div id="balance_amount">0 DENA</div>
+                </div>
+                <button class="transfer_button">Transfer</button>
+                <div class="transfer_form" style="display: none;">
+                    <h3>Transfer DENA</h3>
+                    <form id="transferForm">
+                        <input type="text" placeholder="Recipient Address" required>
+                        <input type="number" placeholder="Amount" required>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+                <div class="history_container">
+                    <h3>Transaction History</h3>
+                    <table class="history_table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Transaction history will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Team</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="#">Cryptocurrency</a></li>
+                    <li><a href="#">Blockchain</a></li>
+                    <li><a href="#">Investments</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 DenaCoin. All rights reserved.</p>
+        </div>
+    </footer>
+    <div class="hamburger-menu">
+        <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./Services.html">Services</a></li>
+            <li><a href="./Contact.html">Contact</a></li>
+            <li><a href="./FAQ.html">FAQ</a></li>
+        </ul>
+    </div>
+    <div class="hamburger-overlay"></div>
+</body>
+<script src="script.js"></script>
+<script src="wallet.js"></script>
+<script type="module" src="Cookies.js"></script>
+</html>
