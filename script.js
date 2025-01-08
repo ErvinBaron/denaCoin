@@ -38,49 +38,5 @@ function createRandomStars() {
     container.appendChild(star);
   }
 }
-
-// Form validation
-document
-  .getElementById("registrationForm")
-  .addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const username = document.getElementById("username").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
-
-    // if (password !== confirmPassword) {
-    //   alert("Passwords do not match!");
-    //   return;
-    // }
-
-    if (password.length < 6) {
-      alert("Password must be at least 6 characters long!");
-      return;
-    }
-
-    // If validation passes
-    document.getElementById("successMessage").style.display = "block";
-    this.reset();
-
-    // Hide success message after 3 seconds
-    setTimeout(() => {
-      document.getElementById("successMessage").style.display = "none";
-    }, 3000);
-  });
-
 // Initialize stars
 createRandomStars();
-
-const form = document.getElementById("registrationForm");
-form.addEventListener("submit", e => {
-    e.preventDefault();
-    console.log(e.target.elements);
-    const name = e.target.elements.name.value;
-    const email = e.target.elements.email.value;
-    const password = e.target.elements.password.value;
-    const confirmPassword = e.target.elements.confirmPassword.value;
-    // check if password and confirm password match
-    
-})
