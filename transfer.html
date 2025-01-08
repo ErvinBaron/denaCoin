@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="styleregister.css">
+    <link rel="stylesheet" href="styletransfer.css">
     <title>DENA crypto</title>
 </head>
 
@@ -21,7 +21,7 @@
 
             <!-- Right section -->
             <div class="auth-section">
-                <button class="auth-button login"><a href="./login.html">Login</a></button>
+                <button class="auth-button login">Login</button>
                 <button class="auth-button signup">Sign Up</button>
                 <div class="hamburger">
                     <span></span>
@@ -35,33 +35,26 @@
     <main class="dotted-background">
         <div class="star-dots"></div>
         <div class="main_container purple-glow cosmic-border">
-            <div class="register_container random_stars">
+            <div class="register_container">
                 <div class="register_form">
                     <h2 class="form_title">Join DENA</h2>
-                    <form id="registrationForm">
+                    <form id="loginForm">
                         <div class="form_group">
-                            <label class="form_label" for="fname">First Name</label>
-                            <input type="text" id="fname" class="form_input" required>
+                            <label class="form_label" for="sender">sender ID</label>
+                            <input type="text" id="sender ID" class="form_input" required>
                         </div>
+
                         <div class="form_group">
-                            <label class="form_label" for="lname">Last Name</label>
-                            <input type="text" id="lname" class="form_input" required>
-                            <label class="form_label" for="name">Name</label>
-                            <input type="text" id="name" class="form_input" required maxlength="16" minlength="2">
+                            <label class="form_label" for="reciver">Reciver ID</label>
+                            <input type="text" id="Reciver ID" class="form_input" required>
                         </div>
+                        
                         <div class="form_group">
-                            <label class="form_label" for="lastname">Last Name</label>
-                            <input type="text" id="lastname" class="form_input" required maxlength="16" minlength="2">
+                            <label class="form_label" for="amount">Transfer Amount</label>
+                            <input type="password" id="amount" class="form_input" required>
                         </div>
-                        <div class="form_group">
-                            <label class="form_label" for="email">Email</label>
-                            <input type="email" id="email" class="form_input" required>
-                        </div>
-                        <div class="form_group">
-                            <label class="form_label" for="password">Password</label>
-                            <input type="password" id="password" class="form_input" required>
-                        </div>
-                        <button type="submit" class="form_button">Create Account</button>
+                        
+                        <button type="submit" class="form_button">SEND</button>
                     </form>
                     <div id="successMessage" class="success_message">
                         Registration successful! Welcome to DENA!
@@ -104,15 +97,15 @@
     <div class="hamburger-menu">
         <ul>
             <li><a href="./index.html">Home</a></li>
-            <li><a href="./about.html">About</a></li>
-            <li><a href="./Services.html">Services</a></li>
-            <li><a href="./Contact.html">Contact</a></li>
-            <li><a href="./FAQ.html">FAQ</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#faq">FAQ</a></li>
         </ul>
     </div>
     <div class="hamburger-overlay"></div>
 </body>
 <script src="script.js"></script>
-<script src = "register.js"></script>
+<script src = "denaCoin.js"></script>
 
 </html>
