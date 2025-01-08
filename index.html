@@ -6,6 +6,59 @@
     <title>Document</title>
   </head>
   <body>
-    <div id="main">D.E.N.A</div>
+    <div>
+      <form id="transactionForm">
+      <label for="sender">Sender Wallet:</label>
+      <input type="text" id="sender" name="senderID" required><br>
+      
+      <label for="to">Recipient Wallet:</label>
+      <input type="text" id="to" name="to" required><br>
+      
+      <label for="amount">Amount:</label>
+      <input type="number" id="amount" name="amount" required><br>
+      
+      <button type="submit">Send Coins</button>
+    </form>
+</div>
+<div>
+  <form id="registerForm">
+    <label for="fname">Sender Wallet:</label>
+    <input type="text" id="fname" name="fname" required><br>
+    
+    <label for="lname">Recipient Wallet:</label>
+    <input type="text" id="lname" name="lname" required><br>
+    
+    <label for="email">Amount:</label>
+    <input type="text" id="email" name="email" required><br>
+
+    <label for="password">Amount:</label>
+    <input type="text" id="password" name="password" required><br>
+    
+    <label for="repeatpassword">Amount:</label>
+    <input type="text" id="repeatpassword" name="repeatpassword" required><br>
+
+    <button type="submit">register</button>
+  </form>
+</div>
+
+<div>
+  <form id="loginForm">
+    
+    <label for="email">Amount:</label>
+    <input type="text" id="email" name="email" required><br>
+
+    <label for="password">Amount:</label>
+    <input type="text" id="password" name="password" required><br>
+    
+    <button type="submit">register</button>
+  </form>
+</div>
+    
+
+  <script src="denaCoins.js"></script>
+  <script src="login.js"></script>
+  <script src="register.js"></script>
+
+
   </body>
 </html>
