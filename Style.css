@@ -189,7 +189,15 @@ main {
     );
     pointer-events: none;
 }
+a {
+    color: inherit;
+    text-decoration: none;
+}
 
+a:hover {
+    color: #e0c8ff;
+    transition: color 0.3s ease;
+}
 /* Star effect styles */
 .star-dots {
     position: absolute;
