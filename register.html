@@ -35,25 +35,25 @@
     <main class="dotted-background">
         <div class="star-dots"></div>
         <div class="main_container purple-glow cosmic-border">
-            <div class="register_container">
+            <div class="register_container random_stars">
                 <div class="register_form">
                     <h2 class="form_title">Join DENA</h2>
                     <form id="registrationForm">
                         <div class="form_group">
-                            <label class="form_label" for="username">Name</label>
-                            <input type="text" id="username" class="form_input" required>
+                            <label class="form_label" for="name">Name</label>
+                            <input type="text" id="name" class="form_input" required maxlength="16" minlength="2">
                         </div>
                         <div class="form_group">
-                            <label class="form_label" for="email">Last Name</label>
+                            <label class="form_label" for="lastname">Last Name</label>
+                            <input type="text" id="lastname" class="form_input" required maxlength="16" minlength="2">
+                        </div>
+                        <div class="form_group">
+                            <label class="form_label" for="email">Email</label>
                             <input type="email" id="email" class="form_input" required>
                         </div>
                         <div class="form_group">
-                            <label class="form_label" for="password">Email</label>
+                            <label class="form_label" for="password">Password</label>
                             <input type="password" id="password" class="form_input" required>
-                        </div>
-                        <div class="form_group">
-                            <label class="form_label" for="confirmPassword">Password</label>
-                            <input type="password" id="confirmPassword" class="form_input" required>
                         </div>
                         <button type="submit" class="form_button">Create Account</button>
                     </form>
@@ -98,10 +98,10 @@
     <div class="hamburger-menu">
         <ul>
             <li><a href="./index.html">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="#faq">FAQ</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./Services.html">Services</a></li>
+            <li><a href="./Contact.html">Contact</a></li>
+            <li><a href="./FAQ.html">FAQ</a></li>
         </ul>
     </div>
     <div class="hamburger-overlay"></div>
