@@ -1,8 +1,8 @@
 
-import java.io.IOException;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import java.io.IOException;
 
 public class CorsHandle implements HttpHandler {
 	private final HttpHandler wrappedHandler;

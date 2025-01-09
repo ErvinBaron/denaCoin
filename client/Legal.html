@@ -9,7 +9,7 @@
     <title>DENA crypto | Legal</title>
 </head>
 
-<body class="cosmic-gradient">
+<body class="cosmic-gradient" onload="initializeAndCheckLogin()">
     <header class="header-container">
         <nav class="nav-content">
             <!-- Left section -->
@@ -33,7 +33,7 @@
 
     <main class="dotted-background">
         <div class="star-dots"></div>
-        <div class="main_container purple-glow cosmic-border">
+        <div class="main_container purple-glow cosmic-border random_stars">
             <div class="legal-container">
                 <h1>Legal Information</h1>
 
@@ -107,7 +107,7 @@
             <p>&copy; 2023 DenaCoin. All rights reserved.</p>
         </div>
     </footer>
-    <div class="hamburger-menu">
+    <div class="hamburger-menu" id="hamburgerMenu">
         <ul>
             <li><a href="./index.html">Home</a></li>
             <li><a href="./about.html">About</a></li>

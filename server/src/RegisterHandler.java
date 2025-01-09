@@ -1,11 +1,11 @@
 
-import java.util.UUID;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.Connection;
+import java.util.UUID;
 import java.util.regex.Pattern;
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 
 public class RegisterHandler implements HttpHandler {
 
