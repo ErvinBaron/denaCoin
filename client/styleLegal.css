@@ -1,0 +1,76 @@
+.legal-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    color: #ffffff;
+}
+
+.legal-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #8a2be2;
+}
+
+.legal-container h2 {
+    font-size: 1.8rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #9370db;
+}
+
+.legal-container p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.legal-container ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.legal-container li {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
+.legal-note {
+    font-style: italic;
+    font-size: 0.9rem;
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+#eula, #terms {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(5px);
+}
+.img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50px;
+    height: 50px;
+    max-width: 300px;
+    margin-bottom: 2rem;
+}
+@media (max-width: 768px) {
+    .legal-container {
+        padding: 1rem;
+    }
+
+    .legal-container h1 {
+        font-size: 2rem;
+    }
+
+    .legal-container h2 {
+        font-size: 1.5rem;
+    }
+}

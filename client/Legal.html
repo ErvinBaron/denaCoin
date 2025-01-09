@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="stylewallet.css">
-    <title>DENA crypto | About</title>
+    <link rel="stylesheet" href="styleLegal.css">
+    <title>DENA crypto | Legal</title>
 </head>
 
 <body class="cosmic-gradient">
@@ -18,11 +18,10 @@
                 <span class="logo-text">DENA</span>
             </div>
 
-
             <!-- Right section -->
             <div class="auth-section">
                 <a href="./login.html"><button class="auth-button login">Login</button></a>
-                <a href="./register.html"></a><button class="auth-button signup">Sign Up</button></a>
+                <a href="./register.html"><button class="auth-button signup">Sign Up</button></a>
                 <div class="hamburger">
                     <span></span>
                     <span></span>
@@ -35,42 +34,48 @@
     <main class="dotted-background">
         <div class="star-dots"></div>
         <div class="main_container purple-glow cosmic-border">
-            <div class="wallet_container random_stars">
-                <div class="hello_div"></div>
-                <div class="balance_container moon-circle">
-                    <div class="balance_container">
-                        <h2>Your Balance</h2>
-                        <div id="balanceAmount" class="balance_amount">1000 DC</div>
-                    </div>
-                </div>
-                <button id="transferButton" class="transfer_button">Transfer</button>
-                <div id="transferForm" class="transfer_form" style="display: none;">
-                    <h3>Transfer DENA</h3>
-                    <form id="transferFormElement">
-                        <input type="text" id="recipientAddress" placeholder="Recipient Address" required>
-                        <input type="number" id="transferAmount" placeholder="Amount" required>
-                        <button type="submit">Send</button>
-                    </form>
-                </div>
-                <div class="history_container">
-                    <h3>Transaction History</h3>
-                    <table class="history_table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Type</th>
-                                <th>Amount</th>
-                                <th>Address</th>
-                            </tr>
-                        </thead>
-                        <tbody id="transactionHistory">
-                            <!-- Transaction history will be populated here -->
-                        </tbody>
-                    </table>
-                </div>
+            <div class="legal-container">
+                <h1>Legal Information</h1>
+
+                <section id="eula">
+                    <h2>End-User License Agreement (EULA)</h2>
+                    <p>By using DENA Crypto, you agree to the following terms:</p>
+                    <ol>
+                        <li>You must be at least 18 years old to use this service.</li>
+                        <li>You agree to use the platform for lawful purposes only.</li>
+                        <li>You are responsible for maintaining the confidentiality of your account information.</li>
+                        <li>DENA Crypto reserves the right to modify or terminate the service at any time.</li>
+                        <li>You acknowledge that cryptocurrency trading involves risks, and you use the platform at your
+                            own risk.</li>
+                    </ol>
+                </section>
+
+                <section id="terms">
+                    <h2>Terms of Use</h2>
+                    <p>By accessing and using DENA Crypto, you agree to comply with and be bound by the following terms
+                        and conditions:</p>
+                    <ol>
+                        <li>You will not use the platform for any illegal activities, including money laundering or
+                            fraud.</li>
+                        <li>You will not attempt to gain unauthorized access to other users' accounts or our systems.
+                        </li>
+                        <li>You will provide accurate and up-to-date information during the registration process.</li>
+                        <li>DENA Crypto is not responsible for any losses incurred due to market volatility or user
+                            error.</li>
+                        <li>We reserve the right to suspend or terminate your account if we suspect any violation of
+                            these terms.</li>
+                        <li>You agree to our privacy policy regarding the collection and use of your personal
+                            information.</li>
+                        <li>Any disputes arising from the use of our platform will be resolved through arbitration.</li>
+                    </ol>
+                </section>
+
+                <p class="legal-note">This is a simplified version of our legal terms. For the full, legally binding
+                    version, please contact our legal department.</p>
             </div>
         </div>
     </main>
+
     <footer class="footer-container">
         <div class="footer-content">
             <div class="footer-section">
@@ -114,7 +119,5 @@
     <div class="hamburger-overlay"></div>
 </body>
 <script src="script.js"></script>
-<script src="wallet.js"></script>
-<script src="Cookies.js"></script>
 
 </html>
