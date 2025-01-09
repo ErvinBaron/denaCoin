@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="styleabout.css">
-    <title>DENA crypto | Contacts</title>
+    <link rel="stylesheet" href="stylecontact.css">
+    <title>DENA crypto | Contact Us</title>
 </head>
 
 <body class="cosmic-gradient">
@@ -14,15 +14,14 @@
         <nav class="nav-content">
             <!-- Left section -->
             <div class="logo-section">
-                <div class="star"></div>
+                <img class="logo" src="./assets/logo2-removebg-preview.png" alt="logo">
                 <span class="logo-text">DENA</span>
             </div>
 
-
             <!-- Right section -->
             <div class="auth-section">
-                <button class="auth-button login">Login</button>
-                <button class="auth-button signup">Sign Up</button>
+                <a href="./login.html"><button class="auth-button login">Login</button></a>
+                <a href="./register.html"></a><button class="auth-button signup">Sign Up</button></a>
                 <div class="hamburger">
                     <span></span>
                     <span></span>
@@ -35,35 +34,39 @@
     <main class="dotted-background">
         <div class="star-dots"></div>
         <div class="main_container purple-glow cosmic-border">
-            <div class="register_container random_stars">
-                <div class="register_form">
-                    <h2 class="form_title">Join DENA</h2>
-                    <form id="registrationForm">
-                        <div class="form_group">
-                            <label class="form_label" for="name">Name</label>
-                            <input type="text" id="name" class="form_input" required maxlength="16" minlength="2">
-                        </div>
-                        <div class="form_group">
-                            <label class="form_label" for="lastname">Last Name</label>
-                            <input type="text" id="lastname" class="form_input" required maxlength="16" minlength="2">
-                        </div>
-                        <div class="form_group">
-                            <label class="form_label" for="email">Email</label>
-                            <input type="email" id="email" class="form_input" required>
-                        </div>
-                        <div class="form_group">
-                            <label class="form_label" for="password">Password</label>
-                            <input type="password" id="password" class="form_input" required>
-                        </div>
-                        <button type="submit" class="form_button">Create Account</button>
-                    </form>
-                    <div id="successMessage" class="success_message">
-                        Registration successful! Welcome to DENA!
+            <div class="contact-container">
+                <h1>Contact Us</h1>
+                <p>Have questions or concerns? We're here to help. Fill out the form below, and we'll get back to you as
+                    soon as possible.</p>
+                <form id="contactForm" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
                     </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">Send Message</button>
+                </form>
+                <div class="contact-info">
+                    <h2>Other Ways to Reach Us</h2>
+                    <p><strong>Email:</strong> support@denacrypto.com</p>
+                    <p><strong>Phone:</strong> +1 (555) 123-4567</p>
+                    <p><strong>Address:</strong> 123 Crypto Street, Blockchain City, DC 12345</p>
                 </div>
             </div>
         </div>
     </main>
+
     <footer class="footer-container">
         <div class="footer-content">
             <div class="footer-section">
@@ -99,10 +102,10 @@
         <ul>
             <li><a href="./index.html">Home</a></li>
             <li><a href="./about.html">About</a></li>
-            <li><a href="./Services.html">Services</a></li>
+            <li><a href="./Legal.html">Services</a></li>
             <li><a href="./Contact.html">Contact</a></li>
             <li><a href="./FAQ.html">FAQ</a></li>
-        </ul>
+          </ul>
     </div>
     <div class="hamburger-overlay"></div>
 </body>
