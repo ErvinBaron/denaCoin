@@ -23,7 +23,7 @@ document.getElementById("registrationForm").addEventListener("submit", async (ev
         alert(result);
 
         // Redirect to user page after successful registration
-        window.location.href = "/wallet.html"; // Replace with the actual URL of your user page
+        window.location.href = "/client/wallet.html"; // Replace with the actual URL of your user page
     } catch (error) {
         console.error("Error:", error);
         alert("Registration failed! Please try again.");

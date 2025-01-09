@@ -6,11 +6,17 @@ document.getElementById("loginForm").addEventListener("submit", async (event) =>
 
     try {
         const result = await sendLoginData(email, password);
-        console.log(result.message);
-        alert("Registration successful!");
+
+        // Check if the login is successful
+        if (result.message === "Login successful!") {
+            alert(result.message); // Display success message
+            window.location.href = "/client/wallet.html"; // Redirect to wallet page
+        } else {
+            alert(result.message || "Login failed. Please try again.");
+        }
     } catch (error) {
-        console.error("Failed to send data to server", error);
-        alert("Registration failed! Please try again.");
+        console.error("Failed to send data to server:", error);
+        alert("Login failed! Please try again.");
     }
 });
 
@@ -19,18 +25,16 @@ async function sendLoginData(email, password) {
         const response = await fetch("http://localhost:8000/login", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                email: email,
-                password: password,
-            }),
+            body: JSON.stringify({ email, password }),
         });
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return await response.json(); 
+
+        return await response.json(); // Parse and return JSON response
     } catch (error) {
-        console.error("Error in sendregistrationData:", error);
+        console.error("Error in sendLoginData:", error);
         throw error;
     }
 }
