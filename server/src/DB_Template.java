@@ -1,4 +1,3 @@
-package templates;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -16,106 +15,84 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class DB_Template {
-	private static String url = "jdbc:sqlite:users.db1"; // The database file name
-	private static Connection conn;
+	private static String url = "jdbc:sqlite:C:\\Users\\Ervin\\Desktop\\code\\denaCoin\\server\\src\\users.db1"; // The database file name
+	private static Connection conn ;
 
-	public static void main(String[] args) throws SQLException, NoSuchAlgorithmException {
-
-		// Database URL (the database will be created if it doesn't exist)
+public static Connection getConn() throws SQLException  {
+	try {
 		conn = DriverManager.getConnection(url);
-		
+		return conn;
+	} catch (SQLException e) {
+		throw new SQLException(e);
+	}}
+
+
+
+	public static void initializeDatabase() throws SQLException, NoSuchAlgorithmException {
+		System.out.println("hello");
+		// Database URL (the database will be created if it doesn't exist)
+
+
 		System.out.println("Database file path: " + new java.io.File(url).getAbsolutePath());
-		
+
 		// SQL query to create the user table with email as username
-		 String createUsersTable = "CREATE TABLE IF NOT EXISTS users ("
-            + "id TEXT PRIMARY KEY, "
-            + "email TEXT NOT NULL UNIQUE, " 
-            + "password TEXT NOT NULL, " 
-            + "name TEXT NOT NULL," 
-            + "lastName TEXT NOT NULL" 
-            + ");";
+		String createUsersTable = "CREATE TABLE IF NOT EXISTS users ("
+				+ "id TEXT PRIMARY KEY, "
+				+ "email TEXT NOT NULL UNIQUE, "
+				+ "password TEXT NOT NULL, "
+				+ "name TEXT NOT NULL,"
+				+ "lastName TEXT NOT NULL"
+				+ ");";
 
-		 //SQL query to create the wallets table
-        String createWalletsTable = "CREATE TABLE IF NOT EXISTS wallets ("
-            + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + "coin_balance REAL, "
-            + "user_id TEXT, "
-            + "FOREIGN KEY (user_id) REFERENCES users(id)"
-            + ");";
-        //SQL query to create the transactions history table
-        String createTransactionHistoryTable = "CREATE TABLE IF NOT EXISTS transaction_history ("
-            + "transaction_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + "senderID TEXT, "
-            + "reciverID TEXT, "
-            + "transaction_amount REAL, "
-            + "time_of_date DATETIME, "
-            + "FOREIGN KEY (senderID) REFERENCES users(id), "
-            + "FOREIGN KEY (reciverID) REFERENCES users(id)"
-            + ");";
+		// SQL query to create the wallets table
+		String createWalletsTable = "CREATE TABLE IF NOT EXISTS wallets ("
+				+ "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+				+ "coin_balance REAL, "
+				+ "user_id TEXT, "
+				+ "FOREIGN KEY (user_id) REFERENCES users(id)"
+				+ ");";
 
-//When the program exits the try block, the JVM automatically calls close() for all resources defined in try-with-resources,
-//	including Connection and Statement.
-		   
-       			
-       			 
-        try (Statement stmt = conn.createStatement()) {
-//       			create the tables
-		         if (stmt.execute(createUsersTable)) { 
-				        System.out.println("Users table created successfully!");
-				   
-		         }
-		         else {
-		        	 System.out.println("Problem occured while trying to create the Users table.");
-		         }
-		         if (stmt.execute(createWalletsTable)) { 
-				        
-				        System.out.println("Wallets table created successfully!");
-				      
-		         }
-		         else {
-		        	 System.out.println("Problem occured while trying to create the wallets table.");
-		         }
-		         if(stmt.execute(createTransactionHistoryTable)) {
-		        	 System.out.println("Transactions table created successfully!");
-		         }else {
-		        	 System.out.println("Problem occured while trying to create the transactions table.");
-		         }
-  
-		        
-        	
-//		        userRegister("user1", "user1@gmailhfuhr", "user1yuhe123", "yacov", "israel"); 
-//		        userRegister("user2", "user2@gmailhfuhr", "user2hq7t3", "pol", "lior"); 
-//		        userRegister("user3", "user@dor", "dor123", "pol", "lior"); 
-//		        userLogin("user1@gmailhfuhr", "hghjgvg");
-//		        userLogin("user@dor", "dor123");
+		// SQL query to create the transactions history table
+		String createTransactionHistoryTable = "CREATE TABLE IF NOT EXISTS transaction_history ("
+				+ "transaction_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+				+ "senderID TEXT, "
+				+ "reciverID TEXT, "
+				+ "transaction_amount REAL, "
+				+ "time_of_date DATETIME, "
+				+ "FOREIGN KEY (senderID) REFERENCES users(id), "
+				+ "FOREIGN KEY (reciverID) REFERENCES users(id)"
+				+ ");";
+		Connection conn = getConn();
+		try (Statement stmt = conn.createStatement()) {
+			// Create the tables
+			if (stmt.execute(createUsersTable)) {
+				System.out.println("Users table created successfully!");
+			} else {
+				System.out.println("Problem occurred while trying to create the Users table.");
+			}
+			if (stmt.execute(createWalletsTable)) {
+				System.out.println("Wallets table created successfully!");
+			} else {
+				System.out.println("Problem occurred while trying to create the wallets table.");
+			}
+			if (stmt.execute(createTransactionHistoryTable)) {
+				System.out.println("Transactions table created successfully!");
+			} else {
+				System.out.println("Problem occurred while trying to create the transactions table.");
+			}
 
-//		        userExist("user1");
-//		        userExist("user54");
-		        getUserInfo("user1");
-//		        getUserInfo("ngk4532");
-//		        addWallet("user2");
-//		        addWallet("user3");
-		        
-//		        checkAmount("ndjkek", 40.393);
-//		        change_wallet_coin_balance("ndjkek",30);
-//		        new_transaction("user2", "user3", 10);
-//		        new_transaction("user2", "user3", 100);
-//		        senderTransactionsInfo("user2");
-		        
-		        String[] arr = reciverTransactionsInfo("user3");
-		        System.out.println(Arrays.toString(arr));
-		        System.out.println(getCoinBalance("user2"));
-		        System.out.println(getUserFirstName("user3"));
-		      
-		
-       		
-       		} catch (SQLException e) {
-		    System.out.println("An error occurred while establishing the connection.");
-		    e.printStackTrace();
-		    }
-       		
-       		
+			// Perform operations
+			getUserInfo("user1");
+			String[] arr = reciverTransactionsInfo("user3");
+			System.out.println(Arrays.toString(arr));
+			System.out.println(getCoinBalance("user2"));
+			System.out.println(getUserFirstName("user3"));
+
+		} catch (SQLException e) {
+			System.out.println("An error occurred while establishing the connection.");
+			e.printStackTrace();
 		}
+	}
 	
 	
 	//registering a new user in the users table with input data
@@ -125,7 +102,7 @@ public class DB_Template {
        	
        	//encrypting the user password
        	String encryptePassword = hashWith256(password);
-       	
+		Connection conn = getConn();
         try(PreparedStatement pstmt = conn.prepareStatement(createUser)){ 
        		
        		pstmt.setString(1, id);
@@ -175,7 +152,7 @@ public class DB_Template {
 	    String query = "SELECT password FROM users WHERE email = ?"; // Corrected SQL query
 	    String encryptedPassword = hashWith256(password); // Hash the input password
 	    String storedPassword = null; // Initialize as null to handle no results case
-
+		Connection conn = getConn();
 	    try (PreparedStatement pstmt = conn.prepareStatement(query)) { 
 	    	System.out.println("DEBUG email: "+email);
 	        pstmt.setString(1, email); // Set the email parameter
@@ -203,6 +180,7 @@ public class DB_Template {
 	//method gets a user id and checks if that user exists
 	public static boolean userExist(String userId) throws SQLException {
 	    String query = "SELECT name FROM users WHERE id = ?"; // Query to check existence
+		Connection conn = getConn();
 	    try (PreparedStatement pstmt = conn.prepareStatement(query)) {
 	        pstmt.setString(1, userId); // Set the user ID parameter
 
@@ -226,7 +204,7 @@ public class DB_Template {
 	//method that inserts a new wallet in the wallets table
 	public static boolean addWallet(String user_id) throws SQLException { 
 		String createwallets = "INSERT INTO wallets (coin_balance, user_id) VALUES (?, ?)";
-		
+		Connection conn = getConn();
 		try (PreparedStatement pstmt = conn.prepareStatement(createwallets)){ 
 			
 			pstmt.setDouble(1, 20.0);
@@ -256,6 +234,7 @@ public class DB_Template {
 	public static boolean checkAmount(String userId, double amount) throws SQLException{
 		String query = "SELECT coin_balance FROM wallets WHERE user_id = ?"; 
 		double coin_balance;
+		Connection conn = getConn();
 	    try (PreparedStatement pstmt = conn.prepareStatement(query)) {
 	        pstmt.setString(1, userId); // Set the user ID parameter
 
@@ -289,7 +268,7 @@ public class DB_Template {
 	public static String[] getUserInfo(String id) throws SQLException {
 		String userInfo = "SELECT email, name, lastName FROM users WHERE id = ?";
 		String[] info = new String[4];
-		
+		Connection conn = getConn();
 		try(PreparedStatement pstmt = conn.prepareStatement(userInfo)) {
 			pstmt.setString(1, id);
 			
@@ -301,8 +280,8 @@ public class DB_Template {
 		        	info[3] = rs.getString("email");
 //		            System.out.println("Record found:");
 //		            System.out.println("Name: " + rs.getString("name"));
-//		            System.out.println("last Name: " + rs.getString("lastName")); 
-//		            System.out.println("email: " + rs.getString("email")); 
+//		            System.out.println("last Name: " + rs.getString("lastName"));
+//		            System.out.println("email: " + rs.getString("email"));
 		        	System.out.println("record found " + Arrays.toString(info));
 		        } else { 
 		            System.out.println("No record found with ID " + id); 
@@ -327,10 +306,12 @@ public class DB_Template {
 			String query = "UPDATE wallets SET coin_balance = coin_balance + ? WHERE user_id = ?";
 		    
 		    // Ensure checkAmount() returns true before updating the balance
-		    if (!checkAmount(userId, Math.abs(amount))) {
-		        return false; // Return false if the operation isn't allowed
-		    }
-
+		if(amount < 0) {
+			if (!checkAmount(userId, Math.abs(amount))) {
+				return false; // Return false if the operation isn't allowed
+			}
+		}
+			Connection conn = getConn();
 		    try (PreparedStatement pstmt = conn.prepareStatement(query)) {
 		        pstmt.setDouble(1, amount); // Set the amount to add
 		        pstmt.setString(2, userId); // Set the user ID
@@ -358,7 +339,8 @@ public class DB_Template {
         String formattedTime = currentTime.format(formatter);
        
         String createTransaction = "INSERT INTO transaction_history (senderID ,reciverID ,transaction_amount , time_of_date) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement pstmt = conn.prepareStatement(createTransaction)){ 
+		Connection conn = getConn();
+		try (PreparedStatement pstmt = conn.prepareStatement(createTransaction)){
 
         if(userExist(senderID) || userExist(reciverID) || senderID != reciverID || amount > 0)
 		{		
@@ -404,6 +386,7 @@ public class DB_Template {
 	//method that gets a user id and prints all transactions where he transfered coins
 	public static boolean senderTransactionsInfo(String id) throws SQLException {
 		String userInfo = "SELECT senderID, reciverID, transaction_amount, time_of_date FROM transaction_history WHERE senderID = ?";
+		Connection conn = getConn();
 		try(PreparedStatement pstmt = conn.prepareStatement(userInfo)) {
 			pstmt.setString(1, id);
 			
@@ -434,6 +417,7 @@ public class DB_Template {
 			String userInfo = "SELECT senderID, reciverID, transaction_amount, time_of_date FROM transaction_history WHERE reciverID = ?";
 			ArrayList<String> resultArrayList = new ArrayList<>();
 			String[] resultArray;
+			Connection conn = getConn();
 			try(PreparedStatement pstmt = conn.prepareStatement(userInfo)) {
 				pstmt.setString(1, id);
 				
@@ -468,6 +452,7 @@ public class DB_Template {
 	{
 		String query = "SELECT coin_balance FROM wallets WHERE user_id = ?"; 
 		double coin_balance = -1;
+		Connection conn = getConn();
 	    try (PreparedStatement pstmt = conn.prepareStatement(query)) {
 	        pstmt.setString(1, user_id); // Set the user ID parameter
 
@@ -491,7 +476,7 @@ public class DB_Template {
 	{
 		String name ="";
 		String query = "SELECT name FROM users WHERE id = ?";
-		
+		Connection conn = getConn();
 		try (PreparedStatement pstmt = conn.prepareStatement(query)) {
 	        pstmt.setString(1, user_id); // Set the user ID parameter
 
