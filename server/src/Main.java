@@ -1,4 +1,3 @@
-package Hakaton;
 
 import java.net.InetSocketAddress;
 import java.sql.Connection;
@@ -29,8 +28,7 @@ public class Main {
 			server.createContext("/pages/login", new CorsHandle(new LoginHandler(dbConnection)));
 			server.createContext("/pages/register", new CorsHandle(new RegisterHandler(dbConnection)));
 			server.createContext("/pages/coin", new CorsHandle(new CoinHandler(dbConnection)));
-			server.createContext("/pages/coin/buy", new CorsHandle(new CoinBuyHandle(dbConnection)));
-			server.createContext("/pages/coin/sell", new CorsHandle(new CoinSellHandle(dbConnection)));
+			server.createContext("/pages/coin/transaction", new CorsHandle(new CoinTransactionHandle(dbConnection)));
 			server.createContext("/pages/wallet", new CorsHandle(new WalletHandler(dbConnection)));
 			
 			server.setExecutor(null);

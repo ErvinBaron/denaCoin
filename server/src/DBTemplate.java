@@ -1,4 +1,3 @@
-package Hakaton;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -15,12 +14,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
-public class DB_Template {
+public class DBTemplate {
 	private static String url = "jdbc:sqlite:users.db1"; // The database file name
 	private static Connection conn;
 
-	public static void mainMethod() throws SQLException, NoSuchAlgorithmException {
+	public static void mainMathod() throws SQLException, NoSuchAlgorithmException {
 
 		// Database URL (the database will be created if it doesn't exist)
 		conn = DriverManager.getConnection(url);
@@ -82,26 +80,7 @@ public class DB_Template {
 		        	 System.out.println("Problem occured while trying to create the transactions table.");
 		         }
   
-		        
-        	
-//		        userRegister("user1", "user1@gmailhfuhr", "user1yuhe123", "yacov", "israel"); 
-//		        userRegister("user2", "user2@gmailhfuhr", "user2hq7t3", "pol", "lior"); 
-//		        userRegister("user3", "user@dor", "dor123", "pol", "lior"); 
-//		        userLogin("user1@gmailhfuhr", "hghjgvg");
-//		        userLogin("user@dor", "dor123");
 
-//		        userExist("user1");
-//		        userExist("user54");
-		        getUserInfo("user1");
-//		        getUserInfo("ngk4532");
-//		        addWallet("user2");
-//		        addWallet("user3");
-		        
-//		        checkAmount("ndjkek", 40.393);
-//		        change_wallet_coin_balance("ndjkek",30);
-//		        new_transaction("user2", "user3", 10);
-//		        new_transaction("user2", "user3", 100);
-//		        senderTransactionsInfo("user2");
 		        
 		        String[] arr = reciverTransactionsInfo("user3");
 		        System.out.println(Arrays.toString(arr));
@@ -487,7 +466,7 @@ public class DB_Template {
 	        	return coin_balance; 
 	        }
 	}
-	
+	// get user first name by his ID
 	public static String getUserFirstName(String user_id) throws SQLException
 	{
 		String name ="";
@@ -512,31 +491,6 @@ public class DB_Template {
 	        }
 		
 	}
-	
-	public static Users getUserByEmail(String email) throws SQLException {
-	    String query = "SELECT * FROM users WHERE email = ?";
-
-	    try (PreparedStatement pstmt = conn.prepareStatement(query)) {
-	        pstmt.setString(1, email);
-
-	        try (ResultSet rs = pstmt.executeQuery()) {
-	            if (rs.next()) {
-	                return new Users(
-	                    rs.getString("id"),
-	                    rs.getString("name"),
-	                    rs.getString("lastName"),
-	                    rs.getString("email"),
-	                    rs.getString("password")
-	          
-	                );
-	            }
-	        }
-	    } catch (SQLException e) {
-	        System.err.println("Error in getUserByEmail: " + e.getMessage());
-	    }
-	    return null;
-	}
-
 	
 	    
 }
