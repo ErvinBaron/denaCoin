@@ -1,11 +1,9 @@
 
-
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.Connection;
-
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 
 public class CoinHandler implements HttpHandler {
 	
@@ -27,7 +25,7 @@ public class CoinHandler implements HttpHandler {
 			String reciverId;
 			String senderId;
 			
-			new_transaction(String);
+			//new_transaction(String );
 		} else if (exchange.getRequestMethod().equals("GET")){
 			
 		}
