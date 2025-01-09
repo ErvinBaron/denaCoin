@@ -304,6 +304,45 @@
 .auth-section {
     display: hidden;
 }
+.cosmic-button:hover {
+    background: linear-gradient(45deg, #2575fc, #6a11cb);
+    transform: scale(1.05);
+}
+
+.user-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 10px;
+    flex: 1;
+    max-width: 200px;
+}
+
+.stat-item h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    color: #e0c8ff;
+}
+
+.stat-item p {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+
+@keyframes twinkle {
+    0% { opacity: 0.3; }
+    50% { opacity: 1; }
+    100% { opacity: 0.3; }
+}
 @keyframes twinkle {
     0% { opacity: 0.3; }
     50% { opacity: 1; }
