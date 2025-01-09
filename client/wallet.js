@@ -59,25 +59,75 @@ function initializeWalletPage() {
   // Initialize with some example transaction history
   addExampleTransactions();
 }
+function initializeWalletPage() {
+    displayUserGreeting();
+    displayUserBalance();}
 
-function addExampleTransactions() {
-  const transactionHistory = document.getElementById("transactionHistory");
-  const exampleTransactions = [
-    { date: "2023-05-01", type: "Received", amount: 500, address: "0x123..." },
-    { date: "2023-05-02", type: "Sent", amount: 200, address: "0x456..." },
-  ];
 
-  exampleTransactions.forEach((transaction) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-            <td>${transaction.date}</td>
-            <td>${transaction.type}</td>
-            <td>${transaction.amount.toFixed(2)} DENA</td>
-            <td>${transaction.address}</td>
-        `;
-    transactionHistory.appendChild(row);
-  });
-}
+    const transferButton = document.getElementById('transferButton');
+    const transferForm = document.getElementById('transferForm');
+    const transferFormElement = document.getElementById('transferFormElement');
+    const balanceAmount = document.getElementById('balanceAmount');
+    const transactionHistory = document.getElementById('transactionHistory');
+    const historyContainer = document.querySelector('.history_container');
+
+    // Hide transaction history initially
+    historyContainer.style.display = 'none';
+
+    // Toggle transfer form visibility
+    transferButton.addEventListener('click', function() {
+        if (transferForm.style.display === 'none') {
+            transferForm.style.display = 'block';
+            historyContainer.style.display = 'none';
+        } else {
+            transferForm.style.display = 'none';
+            historyContainer.style.display = 'block';
+        }
+    });
+    function fetchTransactionHistory() {
+        const userDataString = sessionStorage.getItem('userData');
+        if (userDataString) {
+            const userData = JSON.parse(userDataString);
+            const userId = userData.id;
+    
+            // Make a POST request to the server to get transaction history
+            fetch('/coin/transaction', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userId: userId }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data && Array.isArray(data)) {
+                    addTransactions(data);
+                } else {
+                    console.error('Invalid transaction data received');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching transaction history:', error);
+            });
+        }
+    }
+    function addTransactions(transactions) {
+        const transactionHistory = document.getElementById('transactionHistory');
+        transactionHistory.innerHTML = ''; // Clear existing transactions
+    
+        transactions.forEach(transaction => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${transaction.date}</td>
+                <td>${transaction.type}</td>
+                <td>${parseFloat(transaction.amount).toFixed(2)} DENA</td>
+                <td>${transaction.address || '-'}</td>
+            `;
+            transactionHistory.appendChild(row);
+        });
+    }
+
+
 
 // Run the initialization function when the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", initializeWalletPage);

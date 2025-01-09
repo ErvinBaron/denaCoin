@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="styleregister.css">
-    <title>DENA crypto | register</title>
+    <link rel="stylesheet" href="stylebuysell.css">
+    <title>DENA crypto | About</title>
 </head>
 
 <body class="cosmic-gradient">
@@ -21,8 +21,8 @@
 
             <!-- Right section -->
             <div class="auth-section">
-                <button class="auth-button login"><a href="./login.html">Login</a></button>
-                <button class="auth-button signup">Sign Up</button>
+                <a href="./login.html"><button class="auth-button login">Login</button></a>
+                <a href="./register.html"></a><button class="auth-button signup">Sign Up</button></a>
                 <div class="hamburger">
                     <span></span>
                     <span></span>
@@ -35,30 +35,24 @@
     <main class="dotted-background">
         <div class="star-dots"></div>
         <div class="main_container purple-glow cosmic-border">
-            <div class="register_container random_stars">
-                <div class="register_form">
-                    <h2 class="form_title">Join DENA</h2>
-                    <form id="registrationForm">
-                        <div class="form_group">
-                            <label class="form_label" for="fname">First Name</label>
-                            <input type="text" id="fname" class="form_input" required>
-                        </div>
-                        <div class="form_group">
-                            <label class="form_label" for="lname">Last Name</label>
-                            <input type="text" id="lname" class="form_input" required>
-                        <div class="form_group">
-                            <label class="form_label" for="email">Email</label>
-                            <input type="email" id="email" class="form_input" required>
-                        </div>
-                        <div class="form_group">
-                            <label class="form_label" for="password">Password</label>
-                            <input type="password" id="password" class="form_input" required>
-                        </div>
-                        <button type="submit" class="form_button">Create Account</button>
-                    </form>
-                    <div id="successMessage" class="success_message">
-                        Registration successful! Welcome to DENA!
+            <div class="wallet_container random_stars">
+                <div class="balance_container moon-circle">
+                    <div class="balance_container">
+                        <h2>Your Balance</h2>
+                        <div id="balanceAmount" class="balance_amount">1000 DC</div>
                     </div>
+                </div>
+                <div class="buy-sell-container">
+                    <h2>Buy/Sell DENA Coins</h2>
+                    <div class="buy-sell-form">
+                        <input type="number" id="coinAmount" placeholder="Amount of coins" required>
+                        <select id="operationType">
+                            <option value="buy">Buy</option>
+                            <option value="sell">Sell</option>
+                        </select>
+                        <button id="executeTrade">Execute Trade</button>
+                    </div>
+                    <div id="tradeResult"></div>
                 </div>
             </div>
         </div>
@@ -102,12 +96,10 @@
             <li><a href="./Contact.html">Contact</a></li>
             <li><a href="./FAQ.html">FAQ</a></li>
         </ul>
-    </div>
-    <div class="hamburger-overlay"></div>
+    <script src="script.js"></script>
+    <script src="wallet.js"></script>
+    <script src="Cookies.js"></script>
+    <script src="buysell.js"></script>
 </body>
 
-
-
-<script src="script.js"></script>
-<script src = "register.js"></script>
 </html>
