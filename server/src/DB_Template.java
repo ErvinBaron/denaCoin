@@ -16,16 +16,16 @@ import java.util.Arrays;
 
 public class DB_Template {
 	private static String url = "jdbc:sqlite:C:\\Users\\Ervin\\Desktop\\code\\denaCoin\\server\\src\\users.db1"; // The database file name
-	private static Connection conn ;
+	private static Connection conn;
 
-public static Connection getConn() throws SQLException  {
-	try {
-		conn = DriverManager.getConnection(url);
-		return conn;
-	} catch (SQLException e) {
-		throw new SQLException(e);
-	}}
-
+	public static Connection getConn() throws SQLException {
+		try {
+			conn = DriverManager.getConnection(url);
+			return conn;
+		} catch (SQLException e) {
+			throw new SQLException(e);
+		}
+	}
 
 
 	public static void initializeDatabase() throws SQLException, NoSuchAlgorithmException {
@@ -81,99 +81,129 @@ public static Connection getConn() throws SQLException  {
 				System.out.println("Problem occurred while trying to create the transactions table.");
 			}
 
-			// Perform operations
-			getUserInfo("user1");
-			String[] arr = reciverTransactionsInfo("user3");
-			System.out.println(Arrays.toString(arr));
-			System.out.println(getCoinBalance("user2"));
-			System.out.println(getUserFirstName("user3"));
+//
 
 		} catch (SQLException e) {
 			System.out.println("An error occurred while establishing the connection.");
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+
 	//registering a new user in the users table with input data
-	public static boolean userRegister(String id, String email, String password,String name, String lastName) throws SQLException, NoSuchAlgorithmException {
+	public static boolean userRegister(String id, String email, String password, String name, String lastName) throws SQLException, NoSuchAlgorithmException {
 		//SQL query to create a new user
-       	String createUser = "INSERT INTO users (id, email, password, name, lastName) VALUES (?, ?, ?, ?, ?)";
-       	
-       	//encrypting the user password
-       	String encryptePassword = hashWith256(password);
+		String createUser = "INSERT INTO users (id, email, password, name, lastName) VALUES (?, ?, ?, ?, ?)";
+
+		//encrypting the user password
+		String encryptePassword = hashWith256(password);
 		Connection conn = getConn();
-        try(PreparedStatement pstmt = conn.prepareStatement(createUser)){ 
-       		
-       		pstmt.setString(1, id);
-       		pstmt.setString(2, email);
-       		pstmt.setString(3, encryptePassword);
-       		pstmt.setString(4, name);
-       		pstmt.setString(5, lastName);
-       		
-       		
-       		int rowsAffected = pstmt.executeUpdate(); 
-       		
-       	// Check if a row was inserted
-            if (rowsAffected > 0) {
-//            	addWallet(id);
-                System.out.println("User registered successfully.");
-                return true;
-            } else {
-                System.out.println("User registration failed.(DB error)" );
-                return false;
-            }
-        } catch(SQLException e) {
-			System.err.println("Error in user registraition. (User wrong input)"+e.getMessage() );
+		try (PreparedStatement pstmt = conn.prepareStatement(createUser)) {
+
+			pstmt.setString(1, id);
+			pstmt.setString(2, email);
+			pstmt.setString(3, encryptePassword);
+			pstmt.setString(4, name);
+			pstmt.setString(5, lastName);
+
+
+			int rowsAffected = pstmt.executeUpdate();
+
+			// Check if a row was inserted
+			if (rowsAffected > 0) {
+				addWallet(id);
+				System.out.println("User registered successfully.");
+				return true;
+			} else {
+				System.out.println("User registration failed.(DB error)");
+				return false;
+			}
+		} catch (SQLException e) {
+			System.err.println("Error in user registraition. (User wrong input)" + e.getMessage());
 			return false;
-			
+
 		}
 	}
-	
-       	
+
+
 	//password encryption method
-	public static String hashWith256(String textToHash) throws NoSuchAlgorithmException{
-        byte[] hash = new byte[256];
-        try {
-            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
-            hash = messageDigest.digest(textToHash.getBytes(StandardCharsets.UTF_8));
-            System.out.println("Hashing completed for: " + textToHash);
+	public static String hashWith256(String textToHash) throws NoSuchAlgorithmException {
+		byte[] hash = new byte[256];
+		try {
+			MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+			hash = messageDigest.digest(textToHash.getBytes(StandardCharsets.UTF_8));
+			System.out.println("Hashing completed for: " + textToHash);
 
-        }
-        catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
 
-        }
-        return String.format("%064x", new BigInteger(1, hash));
-    }
+		}
+		return String.format("%064x", new BigInteger(1, hash));
+	}
 
 	//method gets email and password for login and checks if a user with that email exist and if the password is correct
-	public static boolean userLogin(String email, String password) throws SQLException, NoSuchAlgorithmException { 
-	    String query = "SELECT password FROM users WHERE email = ?"; // Corrected SQL query
-	    String encryptedPassword = hashWith256(password); // Hash the input password
-	    String storedPassword = null; // Initialize as null to handle no results case
-		Connection conn = getConn();
-	    try (PreparedStatement pstmt = conn.prepareStatement(query)) { 
-	    	System.out.println("DEBUG email: "+email);
-	        pstmt.setString(1, email); // Set the email parameter
+	public static boolean userLogin(String email, String password) throws SQLException, NoSuchAlgorithmException {
+		String query = "SELECT password FROM users WHERE email = ?"; // Corrected SQL query
+		String encryptedPassword = hashWith256(password); // Hash the input password
+		String storedPassword = null; // Initialize as null to handle no results case
+		System.out.print(encryptedPassword);
 
-	        try (ResultSet rs = pstmt.executeQuery()) {
-	            if (rs.next()) { // Check if a record exists
-	                storedPassword = rs.getString("password"); // Get the password
-	                System.out.println("Stored password: " + storedPassword);  
-	            } else {
-	                System.out.println("No user found with email: " + email);
-	                return false; // No user found with the given email
-	            }
-	        }
-	        } catch(SQLException e) {
-				System.err.println("Error in user login "+e.getMessage() );
-				return false;
-				
+		Connection conn = getConn();
+		try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+			System.out.println("DEBUG email: " + email);
+			pstmt.setString(1, email); // Set the email parameter
+
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) { // Check if a record exists
+					storedPassword = rs.getString("password"); // Get the password
+					System.out.println("Stored password: " + storedPassword);
+				} else {
+					System.out.println("No user found with email: " + email);
+					return false; // No user found with the given email
+				}
 			}
-	        // Compare the encrypted input password with the stored password
-	        return encryptedPassword.equals(storedPassword);
-	    }
+		} catch (SQLException e) {
+			System.err.println("Error in user login " + e.getMessage());
+			return false;
+
+		}
+		// Compare the encrypted input password with the stored password
+		return encryptedPassword.equals(storedPassword);
+	}
+
+	public static String userLogin(String email, String password, boolean login) throws SQLException, NoSuchAlgorithmException {
+		String query = "SELECT password FROM users WHERE email = ?"; // Corrected SQL query
+		String encryptedPassword = hashWith256(password); // Hash the input password
+		String storedPassword = null; // Initialize as null to handle no results case
+		String userId;
+		System.out.print(encryptedPassword);
+
+		Connection conn = getConn();
+		try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+			System.out.println("DEBUG email: " + email);
+			pstmt.setString(1, email); // Set the email parameter
+
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) { // Check if a record exists
+					storedPassword = rs.getString("password"); // Get the password
+					System.out.println("Stored password: " + storedPassword);
+					userId = rs.getString("id");
+				} else {
+					System.out.println("No user found with email: " + email);
+					return ""; // No user found with the given email
+				}
+			}
+		} catch (SQLException e) {
+			System.err.println("Error in user login " + e.getMessage());
+			return "";
+
+		}
+		// Compare the encrypted input password with the stored password
+		if (encryptedPassword.equals(storedPassword)) {
+			return userId;
+		}
+		return "";
+	}
 
 	
 
@@ -300,7 +330,7 @@ public static Connection getConn() throws SQLException  {
 		
 	}
 
-	
+
 	//method that gets the user id and the amount thats needed to change in the balance, checks and changes if possible
 	public static boolean change_wallet_coin_balance(String userId, double amount) throws SQLException {
 			String query = "UPDATE wallets SET coin_balance = coin_balance + ? WHERE user_id = ?";
@@ -384,34 +414,39 @@ public static Connection getConn() throws SQLException  {
 	
 	
 	//method that gets a user id and prints all transactions where he transfered coins
-	public static boolean senderTransactionsInfo(String id) throws SQLException {
+	public static String[] senderTransactionsInfo(String id) throws SQLException {
 		String userInfo = "SELECT senderID, reciverID, transaction_amount, time_of_date FROM transaction_history WHERE senderID = ?";
+		ArrayList<String> resultArrayList = new ArrayList<>();
+		String[] resultArray;
 		Connection conn = getConn();
 		try(PreparedStatement pstmt = conn.prepareStatement(userInfo)) {
 			pstmt.setString(1, id);
 			
-			try (ResultSet rs = pstmt.executeQuery()) { 
-		        while(rs.next()) { 
-		        
-		            System.out.println("Record found:");
-		            System.out.println("Sender: " + rs.getString("senderID"));
-		            System.out.println("reciver: " + rs.getString("reciverID")); 
-		            System.out.println("transaction amount: " + rs.getString("transaction_amount")); 
-		            System.out.println("time of date: " + rs.getString("time_of_date")); 
-				       
-		       
-		    }
-		        return true;
-		
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					System.out.println(rs);
+//			            System.out.println("Record found:");
+//			            System.out.println("Sender: " + rs.getString("senderID"));
+//			            System.out.println("reciver: " + rs.getString("reciverID"));
+//			            System.out.println("transaction amount: " + rs.getString("transaction_amount"));
+//			            System.out.println("time of date: " + rs.getString("time_of_date"));
+					resultArrayList.add(rs.getString("senderID") + "," +
+							rs.getString("reciverID") + "," +
+							rs.getString("transaction_amount") + "," +
+							rs.getString("time_of_date"));
+				}
+
+				resultArray = resultArrayList.toArray(new String[resultArrayList.size()]);
+				return resultArray;
+			}
+		} catch(SQLException e) {
+			System.err.println("Error in sander transactions info "+e.getMessage() );
+			resultArray = new String[resultArrayList.size()];
+			return resultArray;
 		}
-			
-	    } catch(SQLException e) {
-			System.err.println("Error in sender transactions info "+e.getMessage() );
-			return false;
-			
-		}	
+
 	}
-	
+
 	//method that gets user id and prints all transactions where he received coins
 	public static String[] reciverTransactionsInfo(String id) throws SQLException {
 			String userInfo = "SELECT senderID, reciverID, transaction_amount, time_of_date FROM transaction_history WHERE reciverID = ?";
@@ -496,6 +531,29 @@ public static Connection getConn() throws SQLException  {
 	        }
 		
 	}
-	
-	    
+
+	public static String getUserID(String email) throws SQLException
+	{
+		String id ="";
+		String query = "SELECT id FROM users WHERE email = ?";
+		Connection conn = getConn();
+		try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+			pstmt.setString(1, email); // Set the user ID parameter
+
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) { // Check if a record exists
+					id = rs.getString("id");
+
+				}
+			}
+			return id;
+		}
+
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			return id;
+		}
+
+	}
 }
