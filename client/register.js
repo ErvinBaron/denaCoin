@@ -1,31 +1,12 @@
-const crypto = require('crypto');
+import CryptoJS from "crypto-js";
 
-// Fetch the server's public key
-async function fetchPublicKey() {
-    const response = await fetch("http://localhost:8000/getPublicKey");
-    if (!response.ok) {
-        throw new Error(`Failed to fetch public key: ${response.status}`);
-    }
-    return await response.text(); // The public key as a Base64-encoded string
-}
+const SECRET_KEY = "1234567890123456"; // Must match the backend key
 
-// Encrypt data using the server's public key
-function encryptData(data, publicKeyBase64) {
-    const publicKey = crypto.createPublicKey({
-        key: Buffer.from(publicKeyBase64, 'base64'),
-        format: 'der',
-        type: 'spki',
-    });
-
-    const encrypted = crypto.publicEncrypt(
-        {
-            key: publicKey,
-            padding: crypto.constants.RSA_PKCS1_PADDING,
-        },
-        Buffer.from(JSON.stringify(data))
-    );
-
-    return encrypted.toString('base64');
+// Encrypt data using AES
+function encryptData(data) {
+    const jsonData = JSON.stringify(data);
+    const encrypted = CryptoJS.AES.encrypt(jsonData, SECRET_KEY).toString();
+    return encrypted;
 }
 
 // Submit registration data
@@ -39,17 +20,16 @@ document.getElementById("registrationForm").addEventListener("submit", async (ev
     const password = document.getElementById("password").value;
 
     try {
-        // Fetch the server's public key
-        const publicKey = await fetchPublicKey();
+        // Prepare the JSON payload
+        const data = { fname, lname, email, password };
 
         // Encrypt the registration data
-        const data = { fname, lname, email, password };
-        const encryptedData = encryptData(data, publicKey);
+        const encryptedData = encryptData(data);
 
         // Send encrypted data to the server
         const response = await fetch("http://localhost:8000/register", {
-            method: 'POST',
-            headers: { 'Content-Type': 'text/plain' },
+            method: "POST",
+            headers: { "Content-Type": "text/plain" },
             body: encryptedData,
         });
 

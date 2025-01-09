@@ -1,4 +1,3 @@
-package Hakaton;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -41,9 +40,9 @@ public class LoginHandler implements HttpHandler {
 			
 			isAuthenticated = DB_Template.userLogin(email, password);
 			
-			if (isAuthenticated) {
-				currentUser = DB_Template.getUserByEmail(email);
-			}
+//			if (isAuthenticated) {
+//				currentUser = DB_Template.getUserByEmail(email);
+//			}
 		
 		} catch (Exception e) {
             e.printStackTrace();

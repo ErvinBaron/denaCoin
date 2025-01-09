@@ -1,4 +1,3 @@
-package templates;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -301,8 +300,8 @@ public class DB_Template {
 		        	info[3] = rs.getString("email");
 //		            System.out.println("Record found:");
 //		            System.out.println("Name: " + rs.getString("name"));
-//		            System.out.println("last Name: " + rs.getString("lastName")); 
-//		            System.out.println("email: " + rs.getString("email")); 
+//		            System.out.println("last Name: " + rs.getString("lastName"));
+//		            System.out.println("email: " + rs.getString("email"));
 		        	System.out.println("record found " + Arrays.toString(info));
 		        } else { 
 		            System.out.println("No record found with ID " + id); 

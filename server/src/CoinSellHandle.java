@@ -1,4 +1,3 @@
-package Hakaton;
 
 import java.io.IOException;
 import java.io.OutputStream;
