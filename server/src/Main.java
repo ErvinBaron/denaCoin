@@ -39,7 +39,7 @@ public class Main {
 			server.createContext("/addTransaction", new CorsHandle(new TransactionHandler()));
 			server.createContext("/getBlockchain", new CorsHandle(new BlockchainHandler()));
 			server.createContext("/register", new CorsHandle(new RegisterHandler()));
-
+			server.createContext("/getUserName",  new CorsHandle(new GetUserNameHandler()));
 			server.setExecutor(null); // Default executor
 			server.start();
 
@@ -77,10 +77,17 @@ public class Main {
 					System.out.println("Received registration for: " + fname + " " + lname + " (" + email + ")");
 					String userId = java.util.UUID.randomUUID().toString();
 					boolean registrationSuccess = DB_Template.userRegister(userId, email, password, fname, lname);
-					// Mock registration logic
 
-					// Respond to the client
-					String response = "Registration successful!";
+					JSONObject responseJson = new JSONObject();
+					if (registrationSuccess) {
+						responseJson.put("message", "Registration successful!");
+						responseJson.put("user_id", userId); // Include the UUID in the response
+
+					} else {
+						responseJson.put("message", "Registration failed.");
+					}
+
+					String response = responseJson.toString();
 					exchange.sendResponseHeaders(200, response.getBytes(StandardCharsets.UTF_8).length);
 					OutputStream outputStream = exchange.getResponseBody();
 					outputStream.write(response.getBytes(StandardCharsets.UTF_8));
@@ -113,6 +120,7 @@ public class Main {
 					// Call the userLogin method to validate credentials
 					boolean loginSuccess = DB_Template.userLogin(email, password);
 
+
 					// Prepare response
 					JSONObject responseJson = new JSONObject();
 					if (loginSuccess) {
@@ -138,6 +146,86 @@ public class Main {
 			}
 		}
 	}
+//	private static class GetUserNameHandler implements HttpHandler {
+//		@Override
+//		public void handle(HttpExchange exchange) {
+//			try {
+//				if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
+//					// Read request body
+//					InputStream inputStream = exchange.getRequestBody();
+//					String requestBody = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+//
+//					// Parse the JSON to get user_id
+//					JSONObject requestJson = new JSONObject(requestBody);
+//					String userId = DB_Template.getUserID();
+//
+//					// Fetch user name using the provided method
+//					String userName = DB_Template.getUserFirstName(userId);
+//
+//					JSONObject responseJson = new JSONObject();
+//					if (!userName.isEmpty()) {
+//						responseJson.put("name", userName);
+//						exchange.sendResponseHeaders(200, responseJson.toString().getBytes(StandardCharsets.UTF_8).length);
+//					} else {
+//						responseJson.put("message", "User not found");
+//						exchange.sendResponseHeaders(404, responseJson.toString().getBytes(StandardCharsets.UTF_8).length);
+//					}
+//
+//					// Send response
+//					OutputStream outputStream = exchange.getResponseBody();
+//					outputStream.write(responseJson.toString().getBytes(StandardCharsets.UTF_8));
+//					outputStream.close();
+//				} else {
+//					exchange.sendResponseHeaders(405, -1); // Method Not Allowed
+//				}
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//				try {
+//					exchange.sendResponseHeaders(500, -1); // Internal Server Error
+//				} catch (Exception ignored) {}
+//			}
+//		}
+//	}
+
+	private static class UserNameHandler implements HttpHandler {
+		@Override
+		public void handle(HttpExchange exchange) {
+			try {
+				if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
+					// Parse request to get user ID
+					InputStream inputStream = exchange.getRequestBody();
+					String requestBody = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+					JSONObject requestJson = new JSONObject(requestBody);
+					String userId = requestJson.getString("user_id");
+
+					// Fetch the user's first name from the database
+					String userName = DB_Template.getUserFirstName(userId);
+
+					// Prepare the response
+					JSONObject responseJson = new JSONObject();
+					if (userName != null && !userName.isEmpty()) {
+						responseJson.put("name", userName);
+					} else {
+						responseJson.put("error", "User not found");
+					}
+
+					String response = responseJson.toString();
+					exchange.sendResponseHeaders(200, response.getBytes(StandardCharsets.UTF_8).length);
+					OutputStream outputStream = exchange.getResponseBody();
+					outputStream.write(response.getBytes(StandardCharsets.UTF_8));
+					outputStream.close();
+				} else {
+					exchange.sendResponseHeaders(405, -1); // Method Not Allowed
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				try {
+					exchange.sendResponseHeaders(500, -1); // Internal Server Error
+				} catch (Exception ignored) {}
+			}
+		}
+	}
+
 
 
 	// Simplified TransactionHandler without encryption
