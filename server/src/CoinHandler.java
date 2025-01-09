@@ -1,4 +1,4 @@
-package Hakaton;
+
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -27,7 +27,7 @@ public class CoinHandler implements HttpHandler {
 			String reciverId;
 			String senderId;
 			
-			new_transaction(String );
+			new_transaction(String);
 		} else if (exchange.getRequestMethod().equals("GET")){
 			
 		}

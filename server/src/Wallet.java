@@ -1,4 +1,3 @@
-package Hakaton;
 
 public class Wallet {
 

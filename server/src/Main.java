@@ -1,4 +1,3 @@
-package Hakaton;
 
 import java.net.InetSocketAddress;
 import java.sql.Connection;
