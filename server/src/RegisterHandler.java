@@ -1,4 +1,3 @@
-package Hakaton;
 
 import java.util.UUID;
 import java.io.IOException;

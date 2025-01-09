@@ -17,7 +17,10 @@ body {
     top: 0;
     width: auto;
 }
-
+.logo {
+    height: 75px;
+    width: 75px;
+}
 /* Main content layout */
 main {
     display: flex;
@@ -39,7 +42,7 @@ main {
 
 /* Navigation content styles */
 .nav-content {
-    max-width: 1200px;
+    /* max-width: 1200px; */
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -61,7 +64,7 @@ main {
     font-weight: bold;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     letter-spacing: 2px;
-    align-self: flex-start;
+    align-self: center;
 }
 
 /* Star shape styles */

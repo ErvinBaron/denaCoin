@@ -14,15 +14,15 @@
         <nav class="nav-content">
             <!-- Left section -->
             <div class="logo-section">
-                <div class="star"></div>
+                <img class="logo" src="./assets/logo2-removebg-preview.png" alt="logo">
                 <span class="logo-text">DENA</span>
             </div>
 
 
             <!-- Right section -->
             <div class="auth-section">
-                <button class="auth-button login">Login</button>
-                <button class="auth-button signup">Sign Up</button>
+                <a href="./login.html"><button class="auth-button login">Login</button></a>
+                <a href="./register.html"></a><button class="auth-button signup">Sign Up</button></a>
                 <div class="hamburger">
                     <span></span>
                     <span></span>
@@ -37,16 +37,18 @@
         <div class="main_container purple-glow cosmic-border">
             <div class="wallet_container random_stars">
                 <div class="hello_div"></div>
-                <div class="balance_container">
-                    <h2>Your Balance</h2>
-                    <div id="balance_amount">0 DENA</div>
+                <div class="balance_container moon-circle">
+                    <div class="balance_container">
+                        <h2>Your Balance</h2>
+                        <div id="balanceAmount" class="balance_amount">1000 DC</div>
+                    </div>
                 </div>
-                <button class="transfer_button">Transfer</button>
-                <div class="transfer_form" style="display: none;">
+                <button id="transferButton" class="transfer_button">Transfer</button>
+                <div id="transferForm" class="transfer_form" style="display: none;">
                     <h3>Transfer DENA</h3>
-                    <form id="transferForm">
-                        <input type="text" placeholder="Recipient Address" required>
-                        <input type="number" placeholder="Amount" required>
+                    <form id="transferFormElement">
+                        <input type="text" id="recipientAddress" placeholder="Recipient Address" required>
+                        <input type="number" id="transferAmount" placeholder="Amount" required>
                         <button type="submit">Send</button>
                     </form>
                 </div>
@@ -61,7 +63,7 @@
                                 <th>Address</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="transactionHistory">
                             <!-- Transaction history will be populated here -->
                         </tbody>
                     </table>
@@ -113,5 +115,6 @@
 </body>
 <script src="script.js"></script>
 <script src="wallet.js"></script>
-<script type="module" src="Cookies.js"></script>
+<script src="Cookies.js"></script>
+
 </html>
