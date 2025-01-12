@@ -11,7 +11,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import org.json.JSONObject;
-/*
+
 import java.util.UUID;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -22,7 +22,7 @@ import java.util.Base64;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-*/
+
 public class Main {
 
 	private static Connection dbConnection;
@@ -144,7 +144,7 @@ public class Main {
 					System.out.println("email: "+email + " password: "+password);
 
 					// Call the userLogin method to validate credentials
-					boolean loginSuccess = DBTemplate.userLogin(email, password);
+					boolean loginSuccess = DB_Template.userLogin(email, password);
 
 
 					// Prepare response

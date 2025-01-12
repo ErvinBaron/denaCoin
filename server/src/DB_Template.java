@@ -18,6 +18,14 @@ public class DB_Template {
 				"etta\\OneDrive\\Documents\\Cyberpro - fullstack\\Java\\denaCoin\\server\\lib\\sqlite-jdbc-3.47.2.0 (1).jar"; // The database file name
 	private static Connection conn ;
 
+	
+	
+	public DB_Template(Connection dbConnection) {
+		this.conn = dbConnection;
+	}
+
+
+
 	public static Connection getConn() throws SQLException  {
 		try {
 			conn = DriverManager.getConnection(url);
