@@ -30,6 +30,7 @@ public class GetBalanceHandler implements HttpHandler {
             // Step 3: Send the balance back as a JSON response
             JSONObject responseJson = new JSONObject();
             responseJson.put("balance", balance);
+            System.out.println("balance: " + balance);
 
             String response = responseJson.toString();
             exchange.getResponseHeaders().add("Content-Type", "application/json");
