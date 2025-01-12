@@ -350,18 +350,11 @@ a:hover {
         margin-right: 0;
         margin-bottom: 2rem;
     }
+
+   
 }
 /* Animation for shimmer effect */
 @keyframes shimmer {
     0% { transform: translateX(-100%); }
     100% { transform: translateX(100%); }
-}
-
-/* Media query for mobile responsiveness */
-@media (max-width: 768px) {
-
-
-    .hamburger {
-        display: flex;
-    }
 }
