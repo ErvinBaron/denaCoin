@@ -144,7 +144,7 @@ public class Main {
 					System.out.println("email: "+email + " password: "+password);
 
 					// Call the userLogin method to validate credentials
-					boolean loginSuccess = DB_Template.userLogin(email, password);
+					boolean loginSuccess = DBTemplate.userLogin(email, password);
 
 
 					// Prepare response
