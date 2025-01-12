@@ -51,7 +51,6 @@ public class Main {
 			server.createContext("/register", new CorsHandle(new RegisterHandler()));
 			server.createContext("/get-key", new CorsHandle(new KeyHandler()));
 			server.createContext("/getBalance", new CorsHandle(new GetBalanceHandler()));
-			server.createContext("/transfer", new CorsHandle(new TransferHandler()));
 			server.setExecutor(null); // Default executor
 			server.start();
 
