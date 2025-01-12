@@ -1,0 +1,83 @@
+/* Tablet Styles */
+@media screen and (max-width: 1024px) {
+    .main_container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .coin_FTL, .coin_exp {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+
+    .features_container {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .box {
+        width: 45%;
+        margin-bottom: 20px;
+    }
+}
+
+/* Mobile Styles */
+@media screen and (max-width: 768px) {
+    .nav-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logo-section, .auth-section {
+        margin-bottom: 10px;
+    }
+
+    .auth-button {
+        margin: 5px;
+    }
+
+    .main_container {
+        padding: 20px;
+    }
+
+    .coin_FTL, .coin_exp {
+        width: 100%;
+    }
+
+    .features_container {
+        flex-direction: column;
+    }
+
+    .box {
+        width: 100%;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-section {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+}
+
+/* Hide hamburger menu on larger screens */
+@media screen and (min-width: 769px) {
+    .hamburger, .hamburger-menu, .hamburger-overlay {
+        display: none;
+    }
+}
+
+/* Show hamburger menu on smaller screens */
+@media screen and (max-width: 768px) {
+    .auth-section .auth-button {
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
+    }
+}
