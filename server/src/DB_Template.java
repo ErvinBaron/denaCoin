@@ -471,8 +471,8 @@ public class DB_Template {
 	}
 	public static double getCoinBalanceByName (String name) throws SQLException
 	{
-		String query = "SELECT coin_balance FROM wallets WHERE user_id = ?";
-		double coin_balance = -1;
+		String query = "SELECT coin_balance FROM wallets WHERE name = ?";
+		double coin_balance = 20;
 		Connection conn = getConn();
 		try (PreparedStatement pstmt = conn.prepareStatement(query)) {
 			pstmt.setString(1, name); // Set the user ID parameter
