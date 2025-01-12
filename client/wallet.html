@@ -36,21 +36,24 @@
         <div class="star-dots"></div>
         <div class="main_container purple-glow cosmic-border">
             <div class="wallet_container random_stars">
-                <div class="hello_div"></div>
+                <div class="hello_div">Hi, name!</div>
                 <div class="balance_container moon-circle">
                     <div class="balance_container">
                         <h2>Your Balance</h2>
-                        <div id="balanceAmount" class="balance_amount">1000 DC</div>
+                        <div id="balanceAmount" class="balance_amount">20.0 $DENA</div>
                     </div>
                 </div>
                 <button id="transferButton" class="transfer_button">Transfer</button>
-                <div id="transferForm" class="transfer_form" style="display: none;">
-                    <h3>Transfer DENA</h3>
-                    <form id="transferFormElement">
-                        <input type="text" id="recipientAddress" placeholder="Recipient Address" required>
-                        <input type="number" id="transferAmount" placeholder="Amount" required>
-                        <button type="submit">Send</button>
-                    </form>
+<div id="transferForm" class="transfer_form" style="display: none;">
+  <h3>Transfer DENA</h3>
+  <form id="transferFormElement">
+    <input type="text" id="recipientAddress" placeholder="Recipient ID" required>
+    <input type="number" id="transferAmount" placeholder="Amount" min="0.01" step="0.01" required>
+    <button type="submit">Send</button>
+  </form>
+</div>
+<div id="transferMessage"></div>
+
                 </div>
                 <div class="history_container">
                     <h3>Transaction History</h3>
@@ -114,7 +117,7 @@
     <div class="hamburger-overlay"></div>
 </body>
 <script src="script.js"></script>
-<script src="wallet.js"></script>
+<script src="wallet.js" type="module"></script>
 <script src="Cookies.js"></script>
-
+<script src="transfer.js" type="module"></script>
 </html>
