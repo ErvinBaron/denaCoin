@@ -35,17 +35,7 @@ p{
     color: white;
 }
 
-.main_container {
-    width: 85vw;
-    height: 80vh;
-    /* max-width: 1600px; */
-    background-color: #2E073F;
-    padding: 2rem;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: row-reverse;
-    gap: 2rem;
-}
+
 
 #image{
     height: 100%;
@@ -84,11 +74,6 @@ p{
     .FTL_title {
         font-size: 80px;
     }  
-    .main_container {
-        display: flex;
-        flex-direction: column-reverse;
-        gap: 2rem;
-    }
 
     .box{
         height: 35vh;
@@ -103,11 +88,7 @@ p{
 
 }
 @media (max-width: 320px) {
-    .main_container {
-        display: flex;
-        flex-direction: column-reverse;
-        gap: 2rem;
-    }
+
     .FTL_title {
         font-size: 60px;
     }
