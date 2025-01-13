@@ -1,99 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styleregister.css" />
+    <title>DENA crypto | Register</title>
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="styleregister.css">
-    <title>DENA crypto | register</title>
-</head>
-
-<body class="cosmic-gradient">
+  <body class="cosmic-gradient">
     <header class="header-container">
-        <nav class="nav-content">
-            <!-- Left section -->
-            <div class="logo-section">
-                <img class="logo" src="./assets/logo2-removebg-preview.png" alt="logo">
-                <span class="logo-text">DENA</span>
-            </div>
+      <nav class="nav-content">
+        <!-- Left section -->
+        <div class="logo-section">
+          <img
+            class="logo"
+            src="./assets/logo2-removebg-preview.png"
+            alt="logo"
+          />
+          <span class="logo-text">DENA</span>
+        </div>
 
-
-            <!-- Right section -->
-            <div class="auth-section">
-                <button class="auth-button login"><a href="./login.html">Login</a></button>
-                <button class="auth-button signup">Sign Up</button>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-        </nav>
+        <!-- Right section -->
+        <div class="auth-section">
+          <a href="./login.html" class="auth-button login">Login</a>
+          <button class="auth-button signup">Sign Up</button>
+          <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </nav>
     </header>
 
     <main class="dotted-background">
-        <div class="star-dots"></div>
-        <div class="main_container purple-glow cosmic-border">
-            <div class="register_container random_stars">
-                <div class="register_form">
-                    <h2 class="form_title">Join DENA</h2>
-                    <form id="registrationForm">
-                        <div class="form_group">
-                            <label class="form_label" for="fname">First Name</label>
-                            <input type="text" id="fname" class="form_input" required>
-                        </div>
-                        <div class="form_group">
-                            <label class="form_label" for="lname">Last Name</label>
-                            <input type="text" id="lname" class="form_input" required>
-                        <div class="form_group">
-                            <label class="form_label" for="email">Email</label>
-                            <input type="email" id="email" class="form_input" required>
-                        </div>
-                        <div class="form_group">
-                            <label class="form_label" for="password">Password</label>
-                            <input type="password" id="password" class="form_input" required>
-                        </div>
-                        <button type="submit" class="form_button">Create Account</button>
-                    </form>
-                    <div id="successMessage" class="success_message">
-                        Registration successful! Welcome to DENA!
-                    </div>
-                </div>
+      <div class="star-dots"></div>
+      <div class="main_container purple-glow cosmic-border">
+        <div class="register_container random_stars">
+          <div class="register_form">
+            <h2 class="form_title">Join DENA</h2>
+            <form id="registrationForm">
+              <div class="form_group">
+                <label class="form_label" for="fname">First Name</label>
+                <input type="text" id="fname" class="form_input" required />
+              </div>
+              <div class="form_group">
+                <label class="form_label" for="lname">Last Name</label>
+                <input type="text" id="lname" class="form_input" required />
+              </div>
+              <div class="form_group">
+                <label class="form_label" for="email">Email</label>
+                <input type="email" id="email" class="form_input" required />
+              </div>
+              <div class="form_group">
+                <label class="form_label" for="password">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  class="form_input"
+                  required
+                />
+              </div>
+              <button class="form_button" type="submit">Create Account</button>
+            </form>
+            <div id="successMessage" class="success_message">
+              Registration successful! Welcome to DENA!
             </div>
+          </div>
         </div>
+      </div>
     </main>
+
     <footer class="footer-container">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>About Us</h3>
-                <ul>
-                    <li><a href="#">Our Story</a></li>
-                    <li><a href="#">Team</a></li>
-                    <li><a href="#">Careers</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Services</h3>
-                <ul>
-                    <li><a href="#">Cryptocurrency</a></li>
-                    <li><a href="#">Blockchain</a></li>
-                    <li><a href="#">Investments</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <ul>
-                    <li><a href="#">Support</a></li>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Community</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2023 DenaCoin. All rights reserved.</p>
-        </div>
+      <div class="footer-content">
+        <section class="footer-section">
+          <h3>About Us</h3>
+          <ul>
+            <li><a href="#">Our Story</a></li>
+            <li><a href="#">Team</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </section>
+        <section class="footer-section">
+          <h3>Services</h3>
+          <ul>
+            <li><a href="#">Cryptocurrency</a></li>
+            <li><a href="#">Blockchain</a></li>
+            <li><a href="#">Investments</a></li>
+          </ul>
+        </section>
+        <section class="footer-section">
+          <h3>Contact</h3>
+          <ul>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Community</a></li>
+          </ul>
+        </section>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2023 DenaCoin. All rights reserved.</p>
+      </div>
     </footer>
+
     <div class="hamburger-menu">
         <ul>
             <li><a href="./index.html">Home</a></li>
@@ -106,11 +116,11 @@
         </ul>
     </div>
     <div class="hamburger-overlay"></div>
-</body>
 
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-
-<script src="script.js"></script>
-<script src = "register.js"></script>
+    <!-- External JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script src="script.js"></script>
+    <script src="register.js"></script>
+  </body>
 </html>
+`

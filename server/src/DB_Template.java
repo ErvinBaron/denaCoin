@@ -14,8 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class DB_Template {
-	private static String url = "jdbc:sqlite:C:\\Users\\n" + //
-				"etta\\OneDrive\\Documents\\Cyberpro - fullstack\\Java\\denaCoin\\server\\lib\\sqlite-jdbc-3.47.2.0 (1).jar"; // The database file name
+	private static String url = "jdbc:sqlite:C:\\Users\\Ervin\\Desktop\\code\\denaCoin\\server\\src\\users.db1"; // The database file name
 	private static Connection conn ;
 
 	public static Connection getConn() throws SQLException  {
@@ -28,8 +27,8 @@ public class DB_Template {
 
 
 
-	public static void initializeDatabase() throws SQLException, NoSuchAlgorithmException {
-		System.out.println("hello");
+	public static void createTables() throws SQLException, NoSuchAlgorithmException {
+		//System.out.println("hello");
 		// Database URL (the database will be created if it doesn't exist)
 
 
@@ -116,7 +115,7 @@ public class DB_Template {
 
 			// Check if a row was inserted
 			if (rowsAffected > 0) {
-//            	addWallet(id);
+            	addWallet(id);
 				System.out.println("User registered successfully.");
 				return true;
 			} else {
@@ -472,8 +471,8 @@ public class DB_Template {
 	}
 	public static double getCoinBalanceByName (String name) throws SQLException
 	{
-		String query = "SELECT coin_balance FROM wallets WHERE user_id = ?";
-		double coin_balance = -1;
+		String query = "SELECT coin_balance FROM wallets WHERE name = ?";
+		double coin_balance = 20;
 		Connection conn = getConn();
 		try (PreparedStatement pstmt = conn.prepareStatement(query)) {
 			pstmt.setString(1, name); // Set the user ID parameter
