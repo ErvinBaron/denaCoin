@@ -1,8 +1,16 @@
 .about-content {
     padding: 2rem;
-    color: #ffffff;
+    color: #e0c8ff;
 }
-
+.main_container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #2E073F;
+    border-radius: 12px;
+    height: fit-content;
+}
 .about-content h1 {
     font-size: 2.5rem;
     margin-bottom: 2rem;
@@ -21,4 +29,42 @@
 .about-section p {
     font-size: 1rem;
     line-height: 1.6;
+}
+@media screen and (max-width: 768px) {
+    .main_container {
+        width: 95%;
+        padding: 1.5rem;
+    }
+
+    .about-content h1 {
+        font-size: 2rem;
+    }
+
+    .about-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .about-section p {
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .main_container {
+        width: 100%;
+        padding: 1rem;
+        border-radius: 0;
+    }
+
+    .about-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .about-section h2 {
+        font-size: 1.3rem;
+    }
+
+    .about-section p {
+        font-size: 0.85rem;
+    }
 }
