@@ -21,8 +21,9 @@
 
             <!-- Right section -->
             <div class="auth-section">
-                <a href="./login.html"><button class="auth-button login">Login</button></a>
-                <a href="./register.html"></a><button class="auth-button signup">Sign Up</button></a>
+                <span class="user-name-display"></span> <!-- Display user name here -->
+                <a href="./login.html"><button class="auth-button login" id="loginButton">Login</button></a>
+                <a href="./register.html"><button class="auth-button signup" id="signupButton">Sign Up</button></a>
                 <div class="hamburger">
                     <span></span>
                     <span></span>
@@ -44,34 +45,34 @@
                     </div>
                 </div>
                 <button id="transferButton" class="transfer_button">Transfer</button>
-<div id="transferForm" class="transfer_form">
-  <h3>Transfer DENA</h3>
-  <form id="transferFormElement">
-    <input type="text" id="recipientAddress" placeholder="Recipient ID" required>
-    <input type="number" id="transferAmount" placeholder="Amount" min="0.01" step="0.01" required>
-    <button type="submit">Send</button>
-  </form>
-</div>
-<div id="transferMessage"></div>
+                <div id="transferForm" class="transfer_form">
+                    <h3>Transfer DENA</h3>
+                    <form id="transferFormElement">
+                        <input type="text" id="recipientAddress" placeholder="Recipient ID" required>
+                        <input type="number" id="transferAmount" placeholder="Amount" min="0.01" step="0.01" required>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+                <div id="transferMessage"></div>
 
-                </div>
-                <div class="history_container">
-                    <h3>Transaction History</h3>
-                    <table class="history_table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Type</th>
-                                <th>Amount</th>
-                                <th>Address</th>
-                            </tr>
-                        </thead>
-                        <tbody id="transactionHistory">
-                            <!-- Transaction history will be populated here -->
-                        </tbody>
-                    </table>
-                </div>
             </div>
+            <div class="history_container">
+                <h3>Transaction History</h3>
+                <table class="history_table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Address</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactionHistory">
+                        <!-- Transaction history will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
         </div>
     </main>
     <footer class="footer-container">
@@ -122,4 +123,6 @@
 <script src="wallet.js" type="module"></script>
 <script src="Cookies.js"></script>
 <script src="transfer.js" type="module"></script>
+<script src="logged.js"></script>
+
 </html>

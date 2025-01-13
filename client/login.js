@@ -46,7 +46,11 @@ document.getElementById("loginForm").addEventListener("submit", async (event) =>
   
       // Step 3: Send encrypted data to the server
       const result = await sendLoginData(encrypted);
-      
+      ////////////////////////////////////////////////////
+      // if(result.ok){
+      //   button.style.display = 'none';
+      // }
+      ////////////////////////////////////////////////////
       // Handle server response
       sessionStorage.setItem("fname", result.fname);
       sessionStorage.setItem("user_id", result.user_id);

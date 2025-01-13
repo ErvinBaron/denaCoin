@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ca436c9-8581-43f3-831a-2112ae57c25f" name="Changes" comment="" />
+    <list default="true" id="9ca436c9-8581-43f3-831a-2112ae57c25f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/server/src/users.db1-journal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" afterPath="$PROJECT_DIR$/.project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/Contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/Contact.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/FAQ.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/FAQ.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/Legal.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/Legal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/about.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/buysell.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/buysell.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/coin.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/coin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/indexloggedin.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/indexloggedin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/transfer.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/transfer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/user.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/wallet.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/wallet.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/DB_Template.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/DB_Template.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/users.db1" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/users.db1" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,9 +34,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2rZNkeO7bd0n9TGeu0WUQOJnF4a" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -20,13 +44,28 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "serverintegration",
+    "git-widget-placeholder": "ahronking",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Ervin/Desktop/code/denaCoin/server/src/Main.java"
+    "last_opened_file_path": "C:/Users/Ervin/Desktop/code/denaCoin/server/src/Main.java",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -35,7 +74,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1736762781685</updated>
+      <workItem from="1736775930675" duration="5815000" />
+      <workItem from="1736798402602" duration="936000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>

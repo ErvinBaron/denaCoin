@@ -65,7 +65,7 @@ public class Main {
 	}
 	// initalize the DB
 	private static void initializeDatabase() throws SQLException, NoSuchAlgorithmException {
-		String url = "jdbc:sqlite:C:\\Users\\Ervin\\Desktop\\code\\denaCoin\\server\\src\\users.db1";
+		String url = "jdbc:sqlite:C:\\Users\\aharo\\eclipse-workspace\\denaCoin\\server\\src\\users.db1";
 		dbConnection = DriverManager.getConnection(url);
 		System.out.println("Connected to the database successfully.");
 		DB_Template.createTables();
