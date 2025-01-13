@@ -25,7 +25,8 @@ public class GetBalanceHandler implements HttpHandler {
             String userName = requestJson.getString("name");
 
             // Step 2: Call the database function to get the user's balance
-            double balance = DB_Template.getCoinBalanceByName(userName);
+            String userId = DB_Template.getUserIdByName(userName);
+            double balance = DB_Template.getCoinBalance(userId);
 
             // Step 3: Send the balance back as a JSON response
             JSONObject responseJson = new JSONObject();

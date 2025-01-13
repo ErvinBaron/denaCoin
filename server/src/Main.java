@@ -49,7 +49,7 @@ public class Main {
 			// Register handlers
 			server.createContext("/login", new CorsHandle(new LoginHandler()));
 			server.createContext("/pages/coin", new CorsHandle(new CoinHandler(dbConnection)));
-			server.createContext("/addTransaction", new CorsHandle(new TransactionHandler()));
+//			server.createContext("/addTransaction", new CorsHandle(new TransactionHandler()));
 			server.createContext("/getBlockchain", new CorsHandle(new BlockchainHandler()));
 			server.createContext("/register", new CorsHandle(new RegisterHandler()));
 			server.createContext("/get-key", new CorsHandle(new KeyHandler()));
@@ -65,7 +65,7 @@ public class Main {
 	}
 	// initalize the DB
 	private static void initializeDatabase() throws SQLException, NoSuchAlgorithmException {
-		String url = "jdbc:sqlite:C:\\Users\\david\\denaCoin\\server\\src\\users.db1";
+		String url = "jdbc:sqlite:C:\\Users\\Ervin\\Desktop\\code\\denaCoin\\server\\src\\users.db1";
 		dbConnection = DriverManager.getConnection(url);
 		System.out.println("Connected to the database successfully.");
 		DB_Template.createTables();
@@ -156,6 +156,7 @@ public class Main {
 					if (loginSuccess) {
 						responseJson.put("message", "Login successful!");
 						responseJson.put("fname",DB_Template.getUserFirstNameEmail(email));
+						responseJson.put("user_id", DB_Template.getUserIdByName(DB_Template.getUserFirstNameEmail(email)));
 						exchange.sendResponseHeaders(200, responseJson.toString().getBytes(StandardCharsets.UTF_8).length);
 					} else {
 						responseJson.put("message", "Invalid email or password.");
@@ -244,8 +245,7 @@ public class Main {
 			}
 		}
 	}
-	// Simplified TransactionHandler without encryption
-	private static class TransactionHandler implements HttpHandler {
+	/*private static class TransactionHandler implements HttpHandler {
 		@Override
 		public void handle(HttpExchange exchange) {
 			try {
@@ -291,7 +291,7 @@ public class Main {
 				} catch (Exception ignored) {}
 			}
 		}
-	}
+	}*/
 	// Handler to retrieve the blockchain
 	private static class BlockchainHandler implements HttpHandler {
 		@Override

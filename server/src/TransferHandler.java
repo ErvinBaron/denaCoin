@@ -22,8 +22,7 @@ public class TransferHandler implements HttpHandler {
                 String senderID = DB_Template.getUserIdByName(senderName);
                 JSONObject responseJson = new JSONObject();
 
-                if(DB_Template.change_wallet_coin_balance(senderID,amount)){
-                    DB_Template.new_transaction(senderID, receiverID, amount);
+                if(DB_Template.new_transaction(senderID, receiverID, amount)){
                     System.out.println("Transfer successful!");
                     responseJson.put("message", "Transaction successful!");
                 }else{

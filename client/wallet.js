@@ -29,9 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
 function updateUserName() {
   const helloDiv = document.querySelector(".hello_div");
   const fname = sessionStorage.getItem("fname");
-
+  const id = sessionStorage.getItem("user_id");
   if (fname) {
-    helloDiv.textContent = `Hi, ${fname}!`;
+    helloDiv.textContent = `Hi, ${fname}! id: ${id}`;
   } else {
     helloDiv.textContent = "Hi, Guest!";
     console.warn("First name not found in sessionStorage.");
@@ -64,7 +64,7 @@ export async function fetchAndDisplayAccountBalance() {
     const result = await response.json();
 
     if (result && result.balance !== undefined) {
-      balanceAmountDiv.textContent = `${result.balance.toFixed(2)} $DENA`;
+      balanceAmountDiv.textContent = `${result.balance.toFixed(2)} $DENA `;
     } else {
       console.error("Invalid balance data received:", result);
       balanceAmountDiv.textContent = "Error fetching balance.";

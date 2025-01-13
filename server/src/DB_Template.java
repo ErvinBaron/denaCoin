@@ -14,7 +14,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class DB_Template {
+<<<<<<< HEAD
 	private static String url = "jdbc:sqlite:C:\\Users\\david\\denaCoin\\server\\src\\users.db1"; // The database file name
+=======
+	private static String url = "jdbc:sqlite:C:\\Users\\Ervin\\Desktop\\code\\denaCoin\\server\\src\\users.db1"; // The database file name
+>>>>>>> e6ae9a7fe6cf1436fef14179e3327b368067bf76
 	private static Connection conn ;
 
 	
@@ -267,6 +271,8 @@ public class DB_Template {
 			System.err.println("Error in cheking amount "+e.getMessage() );
 			return false;
 
+		}finally {
+			conn.close();
 		}
 	}
 
@@ -309,10 +315,11 @@ public class DB_Template {
 
 
 	//method that gets the user id and the amount thats needed to change in the balance, checks and changes if possible
-	public static boolean change_wallet_coin_balance(String userId, double amount) throws SQLException {
+	public synchronized static boolean change_wallet_coin_balance(String userId, double amount) throws SQLException {
 		String query = "UPDATE wallets SET coin_balance = coin_balance + ? WHERE user_id = ?";
 
 		// Ensure checkAmount() returns true before updating the balance
+
 		if(amount < 0) {
 			if (!checkAmount(userId, Math.abs(amount))) {
 				return false; // Return false if the operation isn't allowed
@@ -331,61 +338,57 @@ public class DB_Template {
 			System.err.println("Error in updating coin balance "+e.getMessage() );
 			return false;
 
+		}finally {
+			conn.close();
 		}
 	}
 
 
 	//method that gets the ids of sender and receiver and the amount for the transfer, and transfers the money
-	public static boolean new_transaction(String senderID ,String reciverID,double amount) throws SQLException {
-		// Get the current date and time
+	public synchronized static boolean new_transaction(String senderID, String receiverID, double amount) throws SQLException {
 		LocalDateTime currentTime = LocalDateTime.now();
-
-		// Format it to the desired format for SQL DATETIME (dd-MM-yyyy HH:mm)
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 		String formattedTime = currentTime.format(formatter);
 
-		String createTransaction = "INSERT INTO transaction_history (senderID ,reciverID ,transaction_amount , time_of_date) VALUES (?, ?, ?, ?)";
+		String createTransaction = "INSERT INTO transaction_history (senderID, reciverID, transaction_amount, time_of_date) VALUES (?, ?, ?, ?)";
 		Connection conn = getConn();
-		try (PreparedStatement pstmt = conn.prepareStatement(createTransaction)){
+		try {
+			conn.setAutoCommit(false); // Begin transaction
 
-			if(userExist(senderID) || userExist(reciverID) || senderID != reciverID || amount > 0)
-			{
-				if(checkAmount(senderID,(amount*(1)))) {
+			if (userExist(senderID) && userExist(receiverID) && !senderID.equals(receiverID) && amount > 0) {
+				if (checkAmount(senderID, amount)) {
+					System.out.println("problem here?");
+					// Deduct from sender and add to receiver
+					if (change_wallet_coin_balance(senderID, -amount) && change_wallet_coin_balance(receiverID, amount)) {
+						System.out.println("Transfer successful.");
+						try (PreparedStatement pstmt = conn.prepareStatement(createTransaction)) {
+							pstmt.setString(1, senderID);
+							pstmt.setString(2, receiverID);
+							pstmt.setDouble(3, amount);
+							pstmt.setString(4, formattedTime);
 
-					change_wallet_coin_balance(senderID,((-1)*amount));
-					change_wallet_coin_balance(reciverID,amount);
-
-
-					pstmt.setString(1, senderID);
-					pstmt.setString(2, reciverID);
-					pstmt.setDouble(3, amount);
-					pstmt.setString(4, formattedTime);
-
-					int rowsAffected = pstmt.executeUpdate();
-
-					// Check if a row was inserted
-					if (rowsAffected > 0) {
-						System.out.println("Transaction added successfully.");
-						return true;
-					} else {
-						System.out.println("Transaction adding failed.");
-						return false;
+							int rowsAffected = pstmt.executeUpdate();
+							if (rowsAffected > 0) {
+								conn.commit(); // Commit transaction
+								System.out.println("Transaction added successfully.");
+								return true;
+							}
+						}
 					}
-
 				}
 			}
-			else {
-			}
-
+			conn.rollback(); // Rollback on failure
 			return false;
-
-		}
-		catch(SQLException e) {
-
-			System.err.println("Error in Transactions transfering  "+e.getMessage() );
+		} catch (SQLException e) {
+			conn.rollback(); // Ensure rollback on exception
+			System.err.println("Error during transaction: " + e.getMessage());
 			return false;
+		} finally {
+			conn.setAutoCommit(true); // Restore default behavior
+			conn.close();
 		}
 	}
+
 
 
 
