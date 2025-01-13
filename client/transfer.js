@@ -34,6 +34,7 @@ document
       if (result.message === "Transaction successful!") {
         alert("Transaction successful!");
         fetchAndDisplayAccountBalance();
+        location.reload();
       }
     } catch (error) {
       console.error("Transaction failed:", error);

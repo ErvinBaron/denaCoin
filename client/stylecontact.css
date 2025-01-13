@@ -4,7 +4,9 @@
     padding: 2rem;
     color: #ffffff;
 }
-
+.main_container {
+    height: fit-content;
+}
 .contact-container h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
@@ -17,30 +19,34 @@
     text-align: center;
 }
 
+.contact-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
 .contact-form {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 2rem;
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
+    flex: 1;
+    min-width: 300px;
+    margin-right: 2rem;
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
-    font-weight: bold;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
     padding: 0.5rem;
-    border: none;
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
     color: #ffffff;
 }
 
@@ -50,23 +56,23 @@
 }
 
 .submit-button {
-    background: #8a2be2;
-    color: #ffffff;
-    border: none;
+    background-color: #4CAF50;
+    color: white;
     padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    border-radius: 5px;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background 0.3s ease;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
 }
 
 .submit-button:hover {
-    background: #9b4deb;
+    background-color: #45a049;
 }
 
 .contact-info {
-    margin-top: 2rem;
-    text-align: center;
+    flex: 1;
+    min-width: 250px;
 }
 
 .contact-info h2 {
@@ -76,4 +82,42 @@
 
 .contact-info p {
     margin-bottom: 0.5rem;
+    text-align: left;
+}
+
+@media screen and (max-width: 768px) {
+    .contact-content {
+        flex-direction: column;
+    }
+
+    .contact-form {
+        margin-right: 0;
+        margin-bottom: 2rem;
+    }
+
+    .contact-container h1 {
+        font-size: 2rem;
+    }
+
+    .contact-container p {
+        font-size: 0.9rem;
+    }
+
+    .contact-info h2 {
+        font-size: 1.3rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .contact-container {
+        padding: 1rem;
+    }
+
+    .contact-container h1 {
+        font-size: 1.8rem;
+    }
+
+    .contact-info h2 {
+        font-size: 1.2rem;
+    }
 }

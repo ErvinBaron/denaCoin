@@ -69,8 +69,9 @@ public class DB_Template {
 				+ "FOREIGN KEY (senderID) REFERENCES users(id), "
 				+ "FOREIGN KEY (reciverID) REFERENCES users(id)"
 				+ ");";
-		Connection conn = getConn();
-		try (Statement stmt = conn.createStatement()) {
+
+		try (Connection conn = getConn();
+				Statement stmt = conn.createStatement()) {
 			// Create the tables
 			if (stmt.execute(createUsersTable)) {
 				System.out.println("Users table created successfully!");
@@ -90,7 +91,7 @@ public class DB_Template {
 
 			// Perform operations
 			getUserInfo("user1");
-			String[] arr = reciverTransactionsInfo("user3");
+			String[] arr = senderTransactionsInfo("user3");
 			System.out.println(Arrays.toString(arr));
 			System.out.println(getCoinBalance("user2"));
 			System.out.println(getUserFirstName("user3"));
@@ -109,8 +110,9 @@ public class DB_Template {
 
 		//encrypting the user password
 		String encryptePassword = hashWith256(password);
+		try (
 		Connection conn = getConn();
-		try(PreparedStatement pstmt = conn.prepareStatement(createUser)){
+		PreparedStatement pstmt = conn.prepareStatement(createUser)){
 
 			pstmt.setString(1, id);
 			pstmt.setString(2, email);
@@ -159,8 +161,8 @@ public class DB_Template {
 		String query = "SELECT password FROM users WHERE email = ?"; // Corrected SQL query
 		String encryptedPassword = hashWith256(password); // Hash the input password
 		String storedPassword = null; // Initialize as null to handle no results case
-		Connection conn = getConn();
-		try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+		try (Connection conn = getConn();
+			PreparedStatement pstmt = conn.prepareStatement(query)) {
 			System.out.println("DEBUG email: "+email);
 			pstmt.setString(1, email); // Set the email parameter
 
@@ -187,8 +189,8 @@ public class DB_Template {
 	//method gets a user id and checks if that user exists
 	public static boolean userExist(String userId) throws SQLException {
 		String query = "SELECT name FROM users WHERE id = ?"; // Query to check existence
-		Connection conn = getConn();
-		try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+		try (Connection conn = getConn();
+		PreparedStatement pstmt = conn.prepareStatement(query)) {
 			pstmt.setString(1, userId); // Set the user ID parameter
 
 			try (ResultSet rs = pstmt.executeQuery()) {
@@ -211,8 +213,8 @@ public class DB_Template {
 	//method that inserts a new wallet in the wallets table
 	public static boolean addWallet(String user_id) throws SQLException {
 		String createwallets = "INSERT INTO wallets (coin_balance, user_id) VALUES (?, ?)";
-		Connection conn = getConn();
-		try (PreparedStatement pstmt = conn.prepareStatement(createwallets)){
+		try (Connection conn = getConn();
+		PreparedStatement pstmt = conn.prepareStatement(createwallets)){
 
 			pstmt.setDouble(1, 20.0);
 			pstmt.setString(2, user_id);
@@ -241,8 +243,8 @@ public class DB_Template {
 	public static boolean checkAmount(String userId, double amount) throws SQLException{
 		String query = "SELECT coin_balance FROM wallets WHERE user_id = ?";
 		double coin_balance;
-		Connection conn = getConn();
-		try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+		try (Connection conn = getConn();
+		PreparedStatement pstmt = conn.prepareStatement(query)) {
 			pstmt.setString(1, userId); // Set the user ID parameter
 
 			try (ResultSet rs = pstmt.executeQuery()) {
@@ -277,8 +279,8 @@ public class DB_Template {
 	public static String[] getUserInfo(String id) throws SQLException {
 		String userInfo = "SELECT email, name, lastName FROM users WHERE id = ?";
 		String[] info = new String[4];
-		Connection conn = getConn();
-		try(PreparedStatement pstmt = conn.prepareStatement(userInfo)) {
+		try (Connection conn = getConn();
+		PreparedStatement pstmt = conn.prepareStatement(userInfo)) {
 			pstmt.setString(1, id);
 
 			try (ResultSet rs = pstmt.executeQuery()) {
@@ -321,8 +323,8 @@ public class DB_Template {
 				return false; // Return false if the operation isn't allowed
 			}
 		}
-		Connection conn = getConn();
-		try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+		try (Connection conn = getConn();
+		PreparedStatement pstmt = conn.prepareStatement(query)) {
 			pstmt.setDouble(1, amount); // Set the amount to add
 			pstmt.setString(2, userId); // Set the user ID
 
@@ -389,10 +391,10 @@ public class DB_Template {
 
 
 	//method that gets a user id and prints all transactions where he transfered coins
-	public static boolean senderTransactionsInfo(String id) throws SQLException {
+/*	public static boolean senderTransactionsInfo(String id) throws SQLException {
 		String userInfo = "SELECT senderID, reciverID, transaction_amount, time_of_date FROM transaction_history WHERE senderID = ?";
-		Connection conn = getConn();
-		try(PreparedStatement pstmt = conn.prepareStatement(userInfo)) {
+		try (Connection conn = getConn();
+		PreparedStatement pstmt = conn.prepareStatement(userInfo)) {
 			pstmt.setString(1, id);
 
 			try (ResultSet rs = pstmt.executeQuery()) {
@@ -415,50 +417,47 @@ public class DB_Template {
 			return false;
 
 		}
-	}
+	}*/
 
 	//method that gets user id and prints all transactions where he received coins
-	public static String[] reciverTransactionsInfo(String id) throws SQLException {
-		String userInfo = "SELECT senderID, reciverID, transaction_amount, time_of_date FROM transaction_history WHERE reciverID = ?";
+	public static String[] senderTransactionsInfo(String id) throws SQLException {
+		// Query to fetch transactions for the receiver
+		String userInfo = "SELECT senderID, reciverID, transaction_amount, time_of_date FROM transaction_history WHERE senderID = ?";
 		ArrayList<String> resultArrayList = new ArrayList<>();
-		String[] resultArray;
 		Connection conn = getConn();
-		try(PreparedStatement pstmt = conn.prepareStatement(userInfo)) {
+
+		try (PreparedStatement pstmt = conn.prepareStatement(userInfo)) {
 			pstmt.setString(1, id);
 
 			try (ResultSet rs = pstmt.executeQuery()) {
-				while(rs.next()) {
-					System.out.println(rs);
-//			            System.out.println("Record found:");
-//			            System.out.println("Sender: " + rs.getString("senderID"));
-//			            System.out.println("reciver: " + rs.getString("reciverID")); 
-//			            System.out.println("transaction amount: " + rs.getString("transaction_amount")); 
-//			            System.out.println("time of date: " + rs.getString("time_of_date"));
-					resultArrayList.add(rs.getString("senderID") + "," +
-							rs.getString("reciverID") + "," +
-							rs.getString("transaction_amount") + "," +
-							rs.getString("time_of_date"));
+				while (rs.next()) {
+					// Combine transaction details into a single string and add to the ArrayList
+					String transactionDetails = String.join(",",
+							rs.getString("senderID"),           // Sender ID
+							rs.getString("reciverID"),         // Receiver ID
+							String.valueOf(rs.getDouble("transaction_amount")), // Transaction Amount
+							rs.getString("time_of_date"));     // Time of Date
+					resultArrayList.add(transactionDetails);
 				}
 
-				resultArray = resultArrayList.toArray(new String[resultArrayList.size()]);
-				return resultArray;
+				// Convert the ArrayList to an array and return it
+				return resultArrayList.toArray(new String[0]);
 			}
-		} catch(SQLException e) {
-			System.err.println("Error in reciver transactions info "+e.getMessage() );
-			resultArray = new String[resultArrayList.size()];
-			return resultArray;
+		} catch (SQLException e) {
+			System.err.println("Error in receiver transactions info: " + e.getMessage());
+			// Return an empty array in case of an error
+			return new String[0];
 		}
-
-
 	}
+
 
 	//if -1 returned then no user exists with input user id
 	public static double getCoinBalance (String user_id) throws SQLException
 	{
 		String query = "SELECT coin_balance FROM wallets WHERE user_id = ?";
 		double coin_balance = -1;
-		Connection conn = getConn();
-		try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+		try (Connection conn = getConn();
+		PreparedStatement pstmt = conn.prepareStatement(query)) {
 			pstmt.setString(1, user_id); // Set the user ID parameter
 
 			try (ResultSet rs = pstmt.executeQuery()) {
@@ -480,8 +479,8 @@ public class DB_Template {
 	{
 		String query = "SELECT coin_balance FROM wallets WHERE name = ?";
 		double coin_balance = 20;
-		Connection conn = getConn();
-		try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+		try (Connection conn = getConn();
+		PreparedStatement pstmt = conn.prepareStatement(query)) {
 			pstmt.setString(1, name); // Set the user ID parameter
 
 			try (ResultSet rs = pstmt.executeQuery()) {
@@ -505,8 +504,8 @@ public class DB_Template {
 	{
 		String name ="";
 		String query = "SELECT name FROM users WHERE id = ?";
-		Connection conn = getConn();
-		try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+		try (Connection conn = getConn();
+		PreparedStatement pstmt = conn.prepareStatement(query)) {
 			pstmt.setString(1, user_id); // Set the user ID parameter
 
 			try (ResultSet rs = pstmt.executeQuery()) {
@@ -529,8 +528,8 @@ public class DB_Template {
 	{
 		String name ="";
 		String query = "SELECT name FROM users WHERE email = ?";
-		Connection conn = getConn();
-		try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+		try (Connection conn = getConn();
+		PreparedStatement pstmt = conn.prepareStatement(query)) {
 			pstmt.setString(1, email); // Set the user ID parameter
 
 			try (ResultSet rs = pstmt.executeQuery()) {
@@ -550,13 +549,90 @@ public class DB_Template {
 
 	}
 
+	public synchronized static void buyAndSell(String userId, double amount, boolean isBuy) throws SQLException {
+		String query = "SELECT coin_balance FROM wallets WHERE user_id = ?";
+		String updateQuery = "UPDATE wallets SET coin_balance = ? WHERE user_id = ?";
+		double coin_balance;
+		int maxRetries = 10; // הגדלת מספר הנסיונות
+		int retryCount = 0;
 
-public static String getUserIdByName(String name) throws SQLException
+		while (retryCount < maxRetries) {
+			try (Connection conn = getConn();
+				 PreparedStatement pstmt = conn.prepareStatement(query);
+				 PreparedStatement updatePstmt = conn.prepareStatement(updateQuery)) {
+
+				conn.setAutoCommit(false); // התחלת טרנזקציה
+
+				pstmt.setString(1, userId);
+
+				// קבלת היתרה הנוכחית
+				try (ResultSet rs = pstmt.executeQuery()) {
+					if (rs.next()) {
+						coin_balance = rs.getDouble("coin_balance");
+						System.out.println("Current coin balance: " + coin_balance);
+
+						// קנייה - מוסיפים למאזן
+						if (isBuy) {
+							coin_balance += amount;
+							System.out.println("Buying " + amount + " coins. New balance: " + coin_balance);
+						} else { // מכירה - מורידים מהמאזן
+							if (coin_balance >= amount) {
+								coin_balance -= amount;
+								System.out.println("Selling " + amount + " coins. New balance: " + coin_balance);
+							} else {
+								System.out.println("Not enough coins to sell. Current balance: " + coin_balance);
+								return; // לא מספיק מטבעות למכירה
+							}
+						}
+
+						// עדכון המאזן
+						updatePstmt.setDouble(1, coin_balance);
+						updatePstmt.setString(2, userId);
+						updatePstmt.executeUpdate();
+						System.out.println("Coin balance updated successfully.");
+
+						conn.commit(); // אישור הטרנזקציה
+
+						break; // אם הכל עבר בהצלחה, צא מהלולאה
+
+					} else {
+						System.out.println("No wallet found for user ID: " + userId);
+						return;
+					}
+				} catch (SQLException e) {
+					conn.rollback(); // ביטול הטרנזקציה במקרה של שגיאה
+					throw e;
+				}
+			} catch (SQLException e) {
+				if (e.getErrorCode() == 5) { // קוד שגיאה של SQLITE_BUSY הוא 5
+					retryCount++;
+					System.out.println("Database is locked, retrying... (" + retryCount + "/" + maxRetries + ")");
+					try {
+						Thread.sleep(1000); // המתנה של שנייה לפני ניסיון נוסף
+					} catch (InterruptedException ie) {
+						Thread.currentThread().interrupt();
+						throw new SQLException("Interrupted while waiting to retry database access", ie);
+					}
+				} else {
+					throw e; // זרוק את החריגה אם זו שגיאה אחרת
+				}
+			}
+		}
+
+		if (retryCount == maxRetries) {
+			throw new SQLException("Failed to update coin balance after multiple attempts due to database lock");
+		}
+	}
+
+
+
+
+	public static String getUserIdByName(String name) throws SQLException
 {
 	String id ="";
 	String query = "SELECT id FROM users WHERE name = ?";
-	Connection conn = getConn();
-	try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+	try (Connection conn = getConn();
+	PreparedStatement pstmt = conn.prepareStatement(query)) {
 		pstmt.setString(1, name); // Set the user ID parameter
 
 		try (ResultSet rs = pstmt.executeQuery()) {
