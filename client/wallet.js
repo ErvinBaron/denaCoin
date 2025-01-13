@@ -1,129 +1,76 @@
-const crypto = require('crypto');
+document.addEventListener('DOMContentLoaded', function() {
+  const transferButton = document.querySelector('.transfer_button');
+  const transferForm = document.querySelector('.transfer_form');
+  const maincontainer = document.querySelector('.main_container');
 
-// Fetch the server's public key
-async function fetchPublicKey() {
-    const response = await fetch("http://localhost:8000/getPublicKey");
-    if (!response.ok) {
-        throw new Error(`Failed to fetch public key: ${response.status}`);
-    }
-    return await response.text(); // The public key as a Base64-encoded string
-}
+  transferButton.addEventListener('click', function() {
+      transferForm.classList.toggle('active');
+      maincontainer.classList.toggle('expanded');
 
-// Encrypt data using the server's public key
-function encryptData(data, publicKeyBase64) {
-    const publicKey = crypto.createPublicKey({
-        key: Buffer.from(publicKeyBase64, 'base64'),
-        format: 'der',
-        type: 'spki',
-    });
-
-    const encrypted = crypto.publicEncrypt(
-        {
-            key: publicKey,
-            padding: crypto.constants.RSA_PKCS1_PADDING,
-        },
-        Buffer.from(JSON.stringify(data))
-    );
-
-    return encrypted.toString('base64');
-}
-
-// Submit transaction form
-document.getElementById("transactionForm").addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    // Get values from the form
-    const sender = document.getElementById("sender").value;
-    const recipient = document.getElementById("to").value;
-    const amount = document.getElementById("amount").value;
-
-    try {
-        // Fetch the server's public key
-        const publicKey = await fetchPublicKey();
-
-        // Encrypt the transaction data
-        const data = { sender, recipient, amount: Number(amount) };
-        const encryptedData = encryptData(data, publicKey);
-
-        // Send encrypted data to the server
-        const response = await fetch("http://localhost:8000/addTransaction", {
-            method: 'POST',
-            headers: { 'Content-Type': 'text/plain' },
-            body: encryptedData,
-        });
-
-        if (!response.ok) {
-            throw new Error(`Transaction failed: ${response.status}`);
-        }
-
-        const result = await response.json();
-        console.log(result)
-        } catch (error) {
-        console.error("Transaction failed:", error);
-        alert("Transaction failed to complete!");
-    }finally{
-        location.reload();
-    }
+      if (transferForm.classList.contains('active')) {
+          transferButton.textContent = 'Hide Transfer Form';
+      } else {
+          transferButton.textContent = 'Transfer';
+      }
+  });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  initializeWalletPage();
+  displayStoredUserId();
+});
 
-function displayUserGreeting() {
-    const helloDiv = document.querySelector('.hello_div');
-    
-    // Read the userData from sessionStorage
-    const userDataString = sessionStorage.getItem('userData');
-    
-    if (userDataString) {
-        try {
-            const userData = JSON.parse(userDataString);
-            const userName = userData.name;
-            
-            if (userName) {
-                helloDiv.textContent = `Hello, ${userName}!`;
-            } else {
-                helloDiv.textContent = 'Hello, User!';
-            }
-        } catch (error) {
-            console.error('Error parsing user data from sessionStorage:', error);
-            helloDiv.textContent = 'Hello, User!';
-        }
-    } else {
-        helloDiv.textContent = 'Hello, Guest!';
+document.addEventListener("DOMContentLoaded", () => {
+  updateUserName();
+  fetchAndDisplayAccountBalance();
+});
+
+// Update the user's name in the hello_div
+function updateUserName() {
+  const helloDiv = document.querySelector(".hello_div");
+  const fname = sessionStorage.getItem("fname");
+  const id = sessionStorage.getItem("user_id");
+  if (fname) {
+    helloDiv.textContent = `Hi, ${fname}! id: ${id}`;
+  } else {
+    helloDiv.textContent = "Hi, Guest!";
+    console.warn("First name not found in sessionStorage.");
+  }
+}
+
+// Fetch and display the user's account balance
+export async function fetchAndDisplayAccountBalance() {
+  const fname = sessionStorage.getItem("fname");
+  const balanceAmountDiv = document.getElementById("balanceAmount");
+
+  if (!fname) {
+    console.error("First name not found in sessionStorage.");
+    balanceAmountDiv.textContent = "Error fetching balance.";
+    return;
+  }
+
+  try {
+    const response = await fetch(`http://localhost:8000/getBalance`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: fname }),
+    });
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch balance. HTTP status: ${response.status}`
+      );
     }
-}
-function displayUserBalance() {
-    const balanceElement = document.querySelector('.balance_amount');
-    
-    // Read the userData from sessionStorage
-    const userDataString = sessionStorage.getItem('userData');
-    
-    if (userDataString) {
-        try {
-            const userData = JSON.parse(userDataString);
-            const balance = userData.balance;
-            
-            if (balance !== undefined) {
-                balanceElement.textContent = `${balance} DENA`;
-            } else {
-                balanceElement.textContent = '0 DENA';
-            }
-        } catch (error) {
-            console.error('Error parsing user data from sessionStorage:', error);
-            balanceElement.textContent = '0 DENA';
-        }
+
+    const result = await response.json();
+
+    if (result && result.balance !== undefined) {
+      balanceAmountDiv.textContent = `${result.balance.toFixed(2)} $DENA `;
     } else {
-        balanceElement.textContent = '0 DENA';
+      console.error("Invalid balance data received:", result);
+      balanceAmountDiv.textContent = "Error fetching balance.";
     }
+  } catch (error) {
+    console.error("Error fetching balance:", error);
+    balanceAmountDiv.textContent = "Error fetching balance.";
+  }
 }
-
-// Function to initialize the wallet page
-function initializeWalletPage() {
-    displayUserGreeting();
-    displayUserBalance();
-}
-
-// Run the initialization function when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', initializeWalletPage);
-// Run the function when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', displayUserGreeting);
-

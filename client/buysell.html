@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylebuysell.css">
+    <title>DENA crypto | About</title>
+</head>
+
+<body class="cosmic-gradient">
+    <header class="header-container">
+        <nav class="nav-content">
+            <!-- Left section -->
+            <div class="logo-section">
+                <img class="logo" src="./assets/logo2-removebg-preview.png" alt="logo">
+                <span class="logo-text">DENA</span>
+            </div>
+
+
+            <!-- Right section -->
+            <div class="auth-section">
+                <a href="./login.html"><button class="auth-button login">Login</button></a>
+                <a href="./register.html"><button class="auth-button signup">Sign Up</button></a>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="dotted-background">
+        <div class="star-dots"></div>
+        <div class="main_container purple-glow cosmic-border">
+            <div class="wallet_container random_stars">
+                <div class="balance_container moon-circle">
+                    <div class="balance_container">
+                        <h2>Your Balance</h2>
+                        <div id="balanceAmount" class="balance_amount">1000 DC</div>
+                    </div>
+                </div>
+                <div class="buy-sell-container">
+                    <h2>Buy/Sell DENA Coins</h2>
+                    <div class="buy-sell-form">
+                        <input type="number" id="coinAmount" placeholder="Amount of coins" required>
+                        <select id="operationType">
+                            <option value="buy">Buy</option>
+                            <option value="sell">Sell</option>
+                        </select>
+                        <button id="executeTrade">Execute Trade</button>
+                    </div>
+                    <div id="tradeResult"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Team</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="#">Cryptocurrency</a></li>
+                    <li><a href="#">Blockchain</a></li>
+                    <li><a href="#">Investments</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 DenaCoin. All rights reserved.</p>
+        </div>
+    </footer>
+    <div class="hamburger-menu">
+        <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./Services.html">Services</a></li>
+            <li><a href="./Contact.html">Contact</a></li>
+            <li><a href="./FAQ.html">FAQ</a></li>
+        </ul>
+    <script src="script.js"></script>
+    <script src="wallet.js"></script>
+    <script src="Cookies.js"></script>
+    <script src="buysell.js"></script>
+</body>
+
+</html>

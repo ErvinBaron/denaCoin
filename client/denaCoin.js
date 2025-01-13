@@ -57,9 +57,8 @@ document.getElementById("transactionForm").addEventListener("submit", async (eve
         }
 
         const result = await response.json();
-        const responseElement = document.getElementById("balance_amount");
-        responseElement.innerText = result.message;
-        } catch (error) {
+        console.log(result.message);
+    } catch (error) {
         console.error("Transaction failed:", error);
         alert("Transaction failed to complete!");
     }

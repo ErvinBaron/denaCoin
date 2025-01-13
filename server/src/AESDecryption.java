@@ -2,21 +2,29 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import javax.crypto.spec.IvParameterSpec;
 import java.util.Base64;
-import java.util.List;
+import java.nio.charset.StandardCharsets;
 
-class Main {
-    public static void main(String[] args) {
-        Blockchain blockchain = new Blockchain(5); // Difficulty of 4
-        System.out.println("Mining block 1...");
-        blockchain.addBlock(List.of("Transaction 1", "Transaction 2"));
+public class AESDecryption {
 
-        System.out.println("Mining block 2...");
-        blockchain.addBlock(List.of("Transaction 3", "Transaction 4"));
 
-//        blockchain.getChain().forEach(block -> {
-//            System.out.println("Block " + block.getIndex() + ":");
-//            System.out.println("Hash: " + block.getHash());
-//            System.out.println("Previous Hash: " + block.getPreviousHash());
-//        });
+
+    private static final String ENCRYPTION_KEY = "1234567890123456"; // Fixed key (same as sent to the client)
+
+    public static String decrypt(String encryptedData) throws Exception {
+        byte[] keyBytes = ENCRYPTION_KEY.getBytes(StandardCharsets.UTF_8);
+        SecretKeySpec secretKey = new SecretKeySpec(keyBytes, "AES");
+        IvParameterSpec ivSpec = new IvParameterSpec(new byte[16]); // Fixed IV (same as client)
+
+        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        cipher.init(Cipher.DECRYPT_MODE, secretKey, ivSpec);
+
+        byte[] encryptedBytes = Base64.getDecoder().decode(encryptedData);
+        byte[] originalBytes = cipher.doFinal(encryptedBytes);
+
+        return new String(originalBytes, StandardCharsets.UTF_8);
     }
+
+
 }
+
+

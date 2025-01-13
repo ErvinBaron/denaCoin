@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="styleabout.css">
+    <link rel="stylesheet" href="stylefaq.css">
     <title>DENA crypto | FAQ</title>
 </head>
 
@@ -14,15 +14,14 @@
         <nav class="nav-content">
             <!-- Left section -->
             <div class="logo-section">
-                <div class="star"></div>
+                <img class="logo" src="./assets/logo2-removebg-preview.png" alt="logo">
                 <span class="logo-text">DENA</span>
             </div>
 
-
             <!-- Right section -->
             <div class="auth-section">
-                <button class="auth-button login">Login</button>
-                <button class="auth-button signup">Sign Up</button>
+                <a href="./login.html"><button class="auth-button login">Login</button></a>
+                <a href="./register.html"></a><button class="auth-button signup">Sign Up</button></a>
                 <div class="hamburger">
                     <span></span>
                     <span></span>
@@ -35,35 +34,46 @@
     <main class="dotted-background">
         <div class="star-dots"></div>
         <div class="main_container purple-glow cosmic-border">
-            <div class="register_container random_stars">
-                <div class="register_form">
-                    <h2 class="form_title">Join DENA</h2>
-                    <form id="registrationForm">
-                        <div class="form_group">
-                            <label class="form_label" for="name">Name</label>
-                            <input type="text" id="name" class="form_input" required maxlength="16" minlength="2">
-                        </div>
-                        <div class="form_group">
-                            <label class="form_label" for="lastname">Last Name</label>
-                            <input type="text" id="lastname" class="form_input" required maxlength="16" minlength="2">
-                        </div>
-                        <div class="form_group">
-                            <label class="form_label" for="email">Email</label>
-                            <input type="email" id="email" class="form_input" required>
-                        </div>
-                        <div class="form_group">
-                            <label class="form_label" for="password">Password</label>
-                            <input type="password" id="password" class="form_input" required>
-                        </div>
-                        <button type="submit" class="form_button">Create Account</button>
-                    </form>
-                    <div id="successMessage" class="success_message">
-                        Registration successful! Welcome to DENA!
+            <div class="faq-container">
+                <h1>Frequently Asked Questions</h1>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <h2>What is DENA Crypto?</h2>
+                        <p>DENA Crypto is a cutting-edge cryptocurrency platform that allows users to buy, sell, and trade various digital assets securely and efficiently.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h2>How do I create an account?</h2>
+                        <p>To create an account, click on the "Sign Up" button in the top right corner of the page. Fill out the registration form with your details and follow the verification process.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h2>What cryptocurrencies does DENA support?</h2>
+                        <p>DENA supports a wide range of cryptocurrencies, including Bitcoin, Ethereum, and our native DENA token. For a full list of supported currencies, please check our "Supported Currencies" page.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h2>How secure is DENA Crypto?</h2>
+                        <p>We take security very seriously. DENA Crypto employs state-of-the-art encryption, two-factor authentication, and cold storage for the majority of assets to ensure the highest level of security for our users.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h2>What are the fees for trading on DENA?</h2>
+                        <p>Our fee structure is competitive and transparent. Trading fees typically range from 0.1% to 0.5% depending on your trading volume and the specific cryptocurrency pair. Please refer to our "Fees" page for detailed information.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h2>How can I deposit or withdraw funds?</h2>
+                        <p>You can deposit funds using bank transfers, credit/debit cards, or by transferring cryptocurrencies from another wallet. Withdrawals can be made to your linked bank account or to an external cryptocurrency wallet. Visit your account dashboard for specific instructions.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h2>What is the DENA token?</h2>
+                        <p>The DENA token is our native cryptocurrency. It offers various benefits within our ecosystem, including reduced trading fees, participation in governance decisions, and access to exclusive features.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h2>How can I contact customer support?</h2>
+                        <p>Our customer support team is available 24/7. You can reach us through the "Contact" page on our website, via email at support@denacrypto.com, or through our live chat feature in your account dashboard.</p>
                     </div>
                 </div>
             </div>
         </div>
     </main>
+
     <footer class="footer-container">
         <div class="footer-content">
             <div class="footer-section">
@@ -98,14 +108,15 @@
     <div class="hamburger-menu">
         <ul>
             <li><a href="./index.html">Home</a></li>
+            <li><a href="./wallet.html">Wallet</a></li>
+            <li><a href="./coin.html">Currency</a></li>
             <li><a href="./about.html">About</a></li>
             <li><a href="./Services.html">Services</a></li>
             <li><a href="./Contact.html">Contact</a></li>
             <li><a href="./FAQ.html">FAQ</a></li>
-        </ul>
+          </ul>
     </div>
     <div class="hamburger-overlay"></div>
 </body>
 <script src="script.js"></script>
-
 </html>

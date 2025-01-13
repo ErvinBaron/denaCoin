@@ -1,0 +1,153 @@
+.buy-sell-container {
+    background-color: rgba(30, 0, 60, 0.7);
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 0 15px rgba(147, 112, 219, 0.3);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.buy-sell-container h2 {
+    color: #b19cd9;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    text-shadow: 0 0 10px rgba(147, 112, 219, 0.5);
+}
+
+.buy-sell-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buy-sell-form input[type="number"],
+.buy-sell-form select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #9370db;
+    border-radius: 5px;
+    background-color: rgba(30, 0, 60, 0.5);
+    color: #fff;
+    font-size: 1em;
+    transition: all 0.3s ease;
+}
+
+.buy-sell-form input[type="number"]:focus,
+.buy-sell-form select:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(147, 112, 219, 0.5);
+}
+
+.buy-sell-form input[type="number"]::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.buy-sell-form select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%239370db" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+.buy-sell-form button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #9370db;
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.buy-sell-form button:hover {
+    background-color: #8a2be2;
+    box-shadow: 0 0 15px rgba(147, 112, 219, 0.7);
+}
+
+#tradeResult {
+    margin-top: 20px;
+    text-align: center;
+    color: #b19cd9;
+    font-weight: bold;
+    font-size: 1.1em;
+    text-shadow: 0 0 5px rgba(147, 112, 219, 0.5);
+}
+
+.coin-price {
+    text-align: center;
+    color: #b19cd9;
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+/* Cosmic theme enhancements */
+.buy-sell-container {
+    position: relative;
+    overflow: hidden;
+}
+.balance_container {
+    border-radius: 50%;
+    border: 2px solid #e0c8ff;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #450764;
+    box-shadow: 0 0 20px rgba(224, 200, 255, 0.3);
+}
+
+.balance_container h2 {
+    color: #e0c8ff;
+    margin-bottom: 0.5rem;
+}
+.wallet_container {
+    border-color: white;
+    height: 100%;
+    width: 100%;
+}
+
+
+
+.main_container {
+    border-radius: 150px 150px 0 0;
+}
+.balance_amount {
+    font-size: 2rem;
+    color: #fff;
+    font-weight: bold;
+}
+.buy-sell-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(147, 112, 219, 0.1) 0%, rgba(147, 112, 219, 0) 70%);
+    transform: rotate(30deg);
+    pointer-events: none;
+}
+
+@keyframes cosmic-pulse {
+    0% { box-shadow: 0 0 5px rgba(147, 112, 219, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(147, 112, 219, 0.8); }
+    100% { box-shadow: 0 0 5px rgba(147, 112, 219, 0.5); }
+}
+
+.buy-sell-form button {
+    animation: cosmic-pulse 3s infinite;
+}

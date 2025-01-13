@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="stylewallet.css">
-    <title>DENA crypto | About</title>
+    <title>DENA crypto | Wallet</title>
 </head>
 
 <body class="cosmic-gradient">
@@ -14,15 +14,15 @@
         <nav class="nav-content">
             <!-- Left section -->
             <div class="logo-section">
-                <div class="star"></div>
+                <img class="logo" src="./assets/logo2-removebg-preview.png" alt="logo">
                 <span class="logo-text">DENA</span>
             </div>
 
 
             <!-- Right section -->
             <div class="auth-section">
-                <button class="auth-button login">Login</button>
-                <button class="auth-button signup">Sign Up</button>
+                <a href="./login.html"><button class="auth-button login">Login</button></a>
+                <a href="./register.html"></a><button class="auth-button signup">Sign Up</button></a>
                 <div class="hamburger">
                     <span></span>
                     <span></span>
@@ -36,19 +36,24 @@
         <div class="star-dots"></div>
         <div class="main_container purple-glow cosmic-border">
             <div class="wallet_container random_stars">
-                <div class="hello_div"></div>
-                <div class="balance_container">
-                    <h2>Your Balance</h2>
-                    <div id="balance_amount">0 DENA</div>
+                <div class="hello_div">Hi, name! <br>id: 0000</div>
+                <div class="balance_container moon-circle">
+                    <div class="balance_container">
+                        <h2>Your Balance</h2>
+                        <div id="balanceAmount" class="balance_amount">20.0 $DENA</div>
+                    </div>
                 </div>
-                <button class="transfer_button">Transfer</button>
-                <div class="transfer_form" style="display: none;">
-                    <h3>Transfer DENA</h3>
-                    <form id="transferForm">
-                        <input type="text" placeholder="Recipient Address" required>
-                        <input type="number" placeholder="Amount" required>
-                        <button type="submit">Send</button>
-                    </form>
+                <button id="transferButton" class="transfer_button">Transfer</button>
+<div id="transferForm" class="transfer_form">
+  <h3>Transfer DENA</h3>
+  <form id="transferFormElement">
+    <input type="text" id="recipientAddress" placeholder="Recipient ID" required>
+    <input type="number" id="transferAmount" placeholder="Amount" min="0.01" step="0.01" required>
+    <button type="submit">Send</button>
+  </form>
+</div>
+<div id="transferMessage"></div>
+
                 </div>
                 <div class="history_container">
                     <h3>Transaction History</h3>
@@ -61,7 +66,7 @@
                                 <th>Address</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="transactionHistory">
                             <!-- Transaction history will be populated here -->
                         </tbody>
                     </table>
@@ -103,6 +108,8 @@
     <div class="hamburger-menu">
         <ul>
             <li><a href="./index.html">Home</a></li>
+            <li><a href="./wallet.html">Wallet</a></li>
+            <li><a href="./coin.html">Currency</a></li>
             <li><a href="./about.html">About</a></li>
             <li><a href="./Services.html">Services</a></li>
             <li><a href="./Contact.html">Contact</a></li>
@@ -112,6 +119,7 @@
     <div class="hamburger-overlay"></div>
 </body>
 <script src="script.js"></script>
-<script src="wallet.js"></script>
-<script type="module" src="Cookies.js"></script>
+<script src="wallet.js" type="module"></script>
+<script src="Cookies.js"></script>
+<script src="transfer.js" type="module"></script>
 </html>
