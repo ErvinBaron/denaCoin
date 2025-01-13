@@ -1,68 +1,43 @@
-function showErrorMessage(message) {
-    const errorMessageElement = document.getElementById('errorMessage');
-    errorMessageElement.querySelector('.error__title').textContent = message;
-    errorMessageElement.style.display = 'flex';
-    
-    // Add show class for animation
-    errorMessageElement.classList.add('show');
-
-    // Auto-hide after 3 seconds
-    setTimeout(() => {
-        closeErrorMessage();
-    }, 3000);
-}
-
-function closeErrorMessage() {
-    const errorMessageElement = document.getElementById('errorMessage');
-    
-    // Add animation
-    errorMessageElement.style.animation = 'slideOut 0.3s ease';
-    
-    // Wait for animation to complete before hiding
-    setTimeout(() => {
-        errorMessageElement.style.display = 'none';
-        errorMessageElement.classList.remove('show');
-        errorMessageElement.style.animation = '';
-    }, 300);
-}
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Setup error message close button
-    const errorCloseBtn = document.querySelector('.error__close');
-    if (errorCloseBtn) {
-        errorCloseBtn.addEventListener('click', closeErrorMessage);
+    // פונקציה להודעות
+    function showMessage(message, type = 'error') {
+        try {
+            if (typeof message === 'string') {
+                console[type](message); // ידפיס את ההודעה עם סוג מתאים ב-console
+            } else {
+                console[type](JSON.stringify(message)); // ידפיס את ההודעה כמבנה JSON
+            }
+        } catch (e) {
+            console.error('An error occurred'); // במקרה של שגיאה
+        }
     }
-
+    // הגדרת גרף
     const labels = ['09:00', '10:00', '11:00', '12:00', '13:00'];
     const data = {
         labels: labels,
-        datasets: [
-            {
-                label: 'coin value',
-                data: [0.15, 0.30, 0.45, 1.00, 1.15],
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                tension: 0.4,
-            },
-        ]
+        datasets: [{
+            label: 'Coin Value',
+            data: [0.15, 0.30, 0.45, 1.00, 1.15],
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            tension: 0.4,
+        }]
     };
 
     const options = {
         responsive: true,
         plugins: {
-            legend: {
-                position: 'top',
-            },
+            legend: { position: 'top' },
             title: {
                 display: true,
-                text: 'Coin Value',
+                text: 'Coin Value Chart',
             },
         },
     };
 
     const chartElement = document.getElementById('cryptoChart');
     if (!chartElement) {
-        showErrorMessage('Chart canvas element not found!');
+        showMessage('Chart canvas element not found!');
         return;
     }
 
@@ -76,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Modal elements
+    // אתחול משתנים UI
     const modal = document.getElementById('transactionModal');
     const closeBtn = document.querySelector('.close-modal');
     const confirmBtn = document.getElementById('confirmTransaction');
@@ -85,31 +60,61 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalCostSpan = document.getElementById('totalCost');
     const buyBtn = document.querySelector('.buy-btn');
     const sellBtn = document.querySelector('.sell-btn');
-
-    // Check if all elements exist
-    if (!modal || !closeBtn || !confirmBtn || !coinAmountInput ||
+    const balanceElement = document.getElementById('userBalance');
+    const userNameElement = document.getElementById('userName');
+    
+    if (!modal || !closeBtn || !confirmBtn || !coinAmountInput || 
         !currentPriceSpan || !totalCostSpan || !buyBtn || !sellBtn) {
-        showErrorMessage('One or more required elements are missing!');
+        showMessage('One or more required elements are missing!');
         return;
     }
 
     let currentAction = '';
+    let userBalance = 0;
 
-    // Chart update interval
-    setInterval(() => {
-        const newValue = (Math.random() * 1) + 0.15; 
-        const currentTime = new Date().toLocaleTimeString();
-    
-        cryptoChart.data.labels.push(currentTime);
-        cryptoChart.data.datasets[0].data.push(newValue.toFixed(2));     
-        if (cryptoChart.data.labels.length > 10) {
-            cryptoChart.data.labels.shift();
-            cryptoChart.data.datasets[0].data.shift();
+    // קבלת יתרת המשתמש
+    async function fetchUserBalance() {
+        const userId = sessionStorage.getItem('user_id');
+        if (!userId) {
+            showMessage('Please log in first');
+            return;
         }
     
-        cryptoChart.update();
-    }, 5000);
-    // Event Listeners
+        try {
+            const response = await fetch(`http://localhost:8000/user-balance/${userId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                mode: 'cors' 
+            });
+    
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+    
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                throw new Error('Server returned invalid JSON format');
+            }
+    
+            const data = await response.json();
+            if (!data.coin_balance && data.coin_balance !== 0) {
+                throw new Error('Invalid balance data received');
+            }
+    
+            userBalance = data.coin_balance;
+            if (balanceElement) {
+                balanceElement.textContent = userBalance.toFixed(2);
+            }
+            if (userNameElement && data.user_name) {
+                userNameElement.textContent = data.user_name;
+            }
+        } catch (error) {
+            showMessage('Error fetching balance: ' + error.message);
+        }
+    }
+        // אירועים
     buyBtn.addEventListener('click', () => {
         currentAction = 'buy';
         document.getElementById('modalTitle').textContent = 'Buy DENA Coins';
@@ -123,34 +128,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     closeBtn.addEventListener('click', closeModal);
-
     window.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            closeModal();
-        }
+        if (event.target === modal) closeModal();
     });
 
     coinAmountInput.addEventListener('input', updateTotalCost);
 
-    confirmBtn.addEventListener('click', () => {
-        const userId = sessionStorage.getItem('userId');
+    confirmBtn.addEventListener('click', async () => {
+        const userId = sessionStorage.getItem('user_id');
         const amount = parseInt(coinAmountInput.value);
 
         if (!userId) {
-            showErrorMessage('Please log in to perform transactions');
+            showMessage('Please log in to perform transactions');
             closeModal();
             return;
         }
 
         if (!amount || isNaN(amount) || amount <= 0) {
-            showErrorMessage('Please enter a valid amount');
+            alert('Please enter a valid amount');
             return;
         }
 
-        postTransaction(currentAction, userId, amount);
+        if (currentAction === 'sell' && amount > userBalance) {
+            alert('Insufficient coin balance');
+            return;
+        }
+
+        await postTransaction(currentAction, userId, amount);
     });
 
-    // Functions
+    // פונקציות למודלים
     function openModal() {
         modal.style.display = 'block';
         coinAmountInput.value = '';
@@ -167,57 +174,64 @@ document.addEventListener('DOMContentLoaded', () => {
         totalCostSpan.textContent = (amount * price).toFixed(2);
     }
 
-    function postTransaction(action, userId, amount) {
-        const url = '/coin';
-        const data = {
-            userId: userId,
-            amount: amount,
-            action: action
-        };
+    // טיפול בעסקאות
+    async function postTransaction(action, userId, amount) {
+        try {
+            const response = await fetch('http://localhost:8000/transactions', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                  userId,
+                  amount,
+                  action
+                })
+            });
 
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => {
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Transaction failed');
             }
-            return response.json();
-        })
-        .then(responseJson => {
-            handleTransactionResponse(responseJson, action);
-            closeModal();
-        })
-        .catch(error => {
-            showErrorMessage(`Transaction failed: ${error.message}`);
-        });
-    }
 
-    function handleTransactionResponse(response, action) {
-        if (response.error) {
-            showErrorMessage(response.error);
-        } else {
-            alert(response.message);
-            updateCoinChart();
+            const data = await response.json();
+            alert(`Successfully ${action}ed ${amount} coins! New balance: ${data.new_balance}`, 'success');
+            userBalance = data.new_balance;
+
+            if (balanceElement) {
+                balanceElement.textContent = userBalance.toFixed(2);
+            }
+            closeModal();
+            updateChart();
+        } catch (error) {
+            showMessage('Transaction error: ' + error.message);
         }
     }
 
-    function updateCoinChart() {
+    // עדכון גרף
+    function updateChart() {
+        const newValue = (Math.random() * 1 + 0.15).toFixed(2);
         const currentTime = new Date().toLocaleTimeString();
-        const newValue = Math.floor(Math.random() * 10) + 100;
-
+        
         cryptoChart.data.labels.push(currentTime);
         cryptoChart.data.datasets[0].data.push(newValue);
-
+        
         if (cryptoChart.data.labels.length > 10) {
             cryptoChart.data.labels.shift();
             cryptoChart.data.datasets[0].data.shift();
         }
 
         cryptoChart.update();
+        if (currentPriceSpan) {
+            currentPriceSpan.textContent = newValue;
+        }
+        updateTotalCost();
     }
+
+    // עדכון אוטומטי של הגרף כל 5 שניות
+    setInterval(updateChart, 5000);
+
+    // אתחול
+    fetchUserBalance();
 });

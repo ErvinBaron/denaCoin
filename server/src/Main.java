@@ -46,7 +46,8 @@ public class Main {
 
 			// Register handlers
 			server.createContext("/login", new CorsHandle(new LoginHandler()));
-			server.createContext("/pages/coin", new CorsHandle(new CoinHandler(dbConnection)));
+			server.createContext("/user-balance", new CorsHandle(new CoinHandler(dbConnection)));
+			server.createContext("/transactions", new CorsHandle(new CoinHandler(dbConnection)));
 //			server.createContext("/addTransaction", new CorsHandle(new TransactionHandler()));
 			server.createContext("/getBlockchain", new CorsHandle(new BlockchainHandler()));
 			server.createContext("/register", new CorsHandle(new RegisterHandler()));
@@ -64,7 +65,7 @@ public class Main {
 	}
 	// initalize the DB
 	private static void initializeDatabase() throws SQLException, NoSuchAlgorithmException {
-		String url = "jdbc:sqlite:C:\\Users\\Ervin\\Desktop\\code\\denaCoin\\server\\src\\users.db1";
+		String url = "jdbc:sqlite:C:\\Users\\david\\denaCoin\\server\\src\\users.db1";
 		dbConnection = DriverManager.getConnection(url);
 		System.out.println("Connected to the database successfully.");
 		DB_Template.createTables();
