@@ -18,7 +18,7 @@ public class TransferHandler implements HttpHandler {
                 JSONObject requestJson = new JSONObject(requestBody);
                 String senderName = requestJson.getString("senderName");
                 String receiverID = requestJson.getString("receiverID");
-                Double amount = Double.parseDouble(requestJson.getString("amount"));
+                Double amount = requestJson.getDouble("amount");
                 String senderID = DB_Template.getUserIdByName(senderName);
                 JSONObject responseJson = new JSONObject();
 
