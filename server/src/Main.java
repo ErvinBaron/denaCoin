@@ -8,20 +8,18 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import org.json.JSONObject;
-
-import java.util.UUID;
+import org.json.JSONArray;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.json.JSONObject;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import java.util.Base64;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
@@ -55,6 +53,7 @@ public class Main {
 			server.createContext("/get-key", new CorsHandle(new KeyHandler()));
 			server.createContext("/getBalance", new CorsHandle(new GetBalanceHandler()));
 			server.createContext("/transfer", new CorsHandle(new TransferHandler()));
+			server.createContext("/getHistory", new CorsHandle(new HistoryHandler()));
 			server.setExecutor(null); // Default executor
 			server.start();
 
@@ -70,6 +69,62 @@ public class Main {
 		System.out.println("Connected to the database successfully.");
 		DB_Template.createTables();
 	}
+	//get user history from db by id
+	private static class HistoryHandler implements HttpHandler {
+		@Override
+		public void handle(HttpExchange exchange) {
+			try {
+				if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
+					// Read and parse JSON request body
+					InputStream inputStream = exchange.getRequestBody();
+					String requestBody = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+					JSONObject requestJson = new JSONObject(requestBody);
+
+					// Extract user ID from the request
+					String id = requestJson.getString("user_id");
+					System.out.println("Received user_id: " + id);
+
+					// Fetch transaction history
+					String[] history = DB_Template.senderTransactionsInfo(id);
+					System.out.println("Fetched history: " + Arrays.toString(history));
+
+					JSONArray responseArray = new JSONArray();
+
+					if (history.length > 0) {
+						// Parse each transaction and add it to the response
+						for (String transaction : history) {
+							String[] details = transaction.split(",");
+							JSONObject transactionJson = new JSONObject();
+							transactionJson.put("senderID", details[0]);
+							transactionJson.put("receiverID", details[1]);
+							transactionJson.put("amount", details[2]);
+							transactionJson.put("timestamp", details[3]);
+							responseArray.put(transactionJson);
+						}
+					} else {
+						System.out.println("No transactions found for user_id: " + id);
+					}
+
+					// Send the JSON response
+					System.out.println("Sending response: " + responseArray.toString());
+					String response = responseArray.toString();
+					exchange.sendResponseHeaders(200, response.getBytes(StandardCharsets.UTF_8).length);
+
+					try (OutputStream outputStream = exchange.getResponseBody()) {
+						outputStream.write(response.getBytes(StandardCharsets.UTF_8));
+					}
+				} else {
+					exchange.sendResponseHeaders(405, -1); // Method Not Allowed
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				try {
+					exchange.sendResponseHeaders(500, -1); // Internal Server Error
+				} catch (Exception ignored) {}
+			}
+		}
+	}
+
 
 	// registration with encryption
 	private static class RegisterHandler implements HttpHandler {
@@ -245,53 +300,7 @@ public class Main {
 			}
 		}
 	}
-	/*private static class TransactionHandler implements HttpHandler {
-		@Override
-		public void handle(HttpExchange exchange) {
-			try {
-				if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
-					// Read plain JSON request body
-					InputStream inputStream = exchange.getRequestBody();
-					String requestBody = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
 
-					// Parse the JSON
-					JSONObject transactionData = new JSONObject(requestBody);
-					String email = transactionData.getString("email");
-					String password = transactionData.getString("password");
-					String fname = transactionData.getString("fname");
-					String lname = transactionData.getString("lname");
-
-					// Generate a unique user ID
-					String userId = java.util.UUID.randomUUID().toString();
-
-					// Call the userRegister method from DB_Template
-					boolean registrationSuccess = DB_Template.userRegister(userId, email, password, fname, lname);
-
-					// Respond to the client based on registration success
-					String response;
-					if (registrationSuccess) {
-						response = "Registration successful!";
-						exchange.sendResponseHeaders(200, response.getBytes(StandardCharsets.UTF_8).length);
-					} else {
-						response = "Registration failed!";
-						exchange.sendResponseHeaders(400, response.getBytes(StandardCharsets.UTF_8).length);
-					}
-
-					// Send the response
-					OutputStream outputStream = exchange.getResponseBody();
-					outputStream.write(response.getBytes(StandardCharsets.UTF_8));
-					outputStream.close();
-				} else {
-					exchange.sendResponseHeaders(405, -1); // Method Not Allowed
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				try {
-					exchange.sendResponseHeaders(500, -1); // Internal Server Error
-				} catch (Exception ignored) {}
-			}
-		}
-	}*/
 	// Handler to retrieve the blockchain
 	private static class BlockchainHandler implements HttpHandler {
 		@Override
