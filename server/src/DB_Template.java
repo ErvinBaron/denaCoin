@@ -91,7 +91,7 @@ public class DB_Template {
 
 			// Perform operations
 			getUserInfo("user1");
-			String[] arr = reciverTransactionsInfo("user3");
+			String[] arr = senderTransactionsInfo("user3");
 			System.out.println(Arrays.toString(arr));
 			System.out.println(getCoinBalance("user2"));
 			System.out.println(getUserFirstName("user3"));
@@ -391,7 +391,7 @@ public class DB_Template {
 
 
 	//method that gets a user id and prints all transactions where he transfered coins
-	public static boolean senderTransactionsInfo(String id) throws SQLException {
+/*	public static boolean senderTransactionsInfo(String id) throws SQLException {
 		String userInfo = "SELECT senderID, reciverID, transaction_amount, time_of_date FROM transaction_history WHERE senderID = ?";
 		try (Connection conn = getConn();
 		PreparedStatement pstmt = conn.prepareStatement(userInfo)) {
@@ -417,42 +417,39 @@ public class DB_Template {
 			return false;
 
 		}
-	}
+	}*/
 
 	//method that gets user id and prints all transactions where he received coins
-	public static String[] reciverTransactionsInfo(String id) throws SQLException {
-		String userInfo = "SELECT senderID, reciverID, transaction_amount, time_of_date FROM transaction_history WHERE reciverID = ?";
+	public static String[] senderTransactionsInfo(String id) throws SQLException {
+		// Query to fetch transactions for the receiver
+		String userInfo = "SELECT senderID, reciverID, transaction_amount, time_of_date FROM transaction_history WHERE senderID = ?";
 		ArrayList<String> resultArrayList = new ArrayList<>();
-		String[] resultArray;
-		try (Connection conn = getConn();
-		PreparedStatement pstmt = conn.prepareStatement(userInfo)) {
+		Connection conn = getConn();
+
+		try (PreparedStatement pstmt = conn.prepareStatement(userInfo)) {
 			pstmt.setString(1, id);
 
 			try (ResultSet rs = pstmt.executeQuery()) {
-				while(rs.next()) {
-					System.out.println(rs);
-//			            System.out.println("Record found:");
-//			            System.out.println("Sender: " + rs.getString("senderID"));
-//			            System.out.println("reciver: " + rs.getString("reciverID")); 
-//			            System.out.println("transaction amount: " + rs.getString("transaction_amount")); 
-//			            System.out.println("time of date: " + rs.getString("time_of_date"));
-					resultArrayList.add(rs.getString("senderID") + "," +
-							rs.getString("reciverID") + "," +
-							rs.getString("transaction_amount") + "," +
-							rs.getString("time_of_date"));
+				while (rs.next()) {
+					// Combine transaction details into a single string and add to the ArrayList
+					String transactionDetails = String.join(",",
+							rs.getString("senderID"),           // Sender ID
+							rs.getString("reciverID"),         // Receiver ID
+							String.valueOf(rs.getDouble("transaction_amount")), // Transaction Amount
+							rs.getString("time_of_date"));     // Time of Date
+					resultArrayList.add(transactionDetails);
 				}
 
-				resultArray = resultArrayList.toArray(new String[resultArrayList.size()]);
-				return resultArray;
+				// Convert the ArrayList to an array and return it
+				return resultArrayList.toArray(new String[0]);
 			}
-		} catch(SQLException e) {
-			System.err.println("Error in reciver transactions info "+e.getMessage() );
-			resultArray = new String[resultArrayList.size()];
-			return resultArray;
+		} catch (SQLException e) {
+			System.err.println("Error in receiver transactions info: " + e.getMessage());
+			// Return an empty array in case of an error
+			return new String[0];
 		}
-
-
 	}
+
 
 	//if -1 returned then no user exists with input user id
 	public static double getCoinBalance (String user_id) throws SQLException

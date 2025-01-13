@@ -885,6 +885,23 @@ a:hover {
 
 /* Media query for mobile responsiveness */
 @media (max-width: 768px) {
+  .main_container {
+    padding: 1rem;
+  }
+  
+  .chart-container {
+    height: 40vh;
+  }
+  
+  .buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .buy-btn, .sell-btn {
+    width: 80%;
+    margin: 0.5rem 0;
+  }
     .main-nav, .auth-section .auth-button {
         display: none;
     }
@@ -921,4 +938,33 @@ a:hover {
         display: flex;
     }
 }
-
+@media screen and (max-width: 480px) {
+  .chart-container {
+    height: 30vh;
+  }
+}
+@media screen and (max-width: 600px) {
+  .crypto-table {
+    font-size: 0.8rem;
+  }
+  
+  .crypto-table td, .crypto-table th {
+    padding: 0.5rem;
+  }
+}
+@media screen and (max-width: 768px) {
+  .buy-btn, .sell-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+@media screen and (max-width: 768px) {
+  .modal-content {
+    width: 90%;
+    padding: 1rem;
+  }
+  
+  .input-group input {
+    width: 100%;
+  }
+}
