@@ -26,7 +26,7 @@ document
       // Step 3: Send encrypted data to the server
       const result = await sendRegistraionData(encrypted);
       sessionStorage.setItem("fname", result.fname);
-      sessionStorage.setItem("user_id", result.userId);
+      sessionStorage.setItem("user_id", result.user_id);
 
       // Handle server response
       if (result.user_id) {

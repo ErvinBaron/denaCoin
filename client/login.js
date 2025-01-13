@@ -49,7 +49,8 @@ document.getElementById("loginForm").addEventListener("submit", async (event) =>
       
       // Handle server response
       sessionStorage.setItem("fname", result.fname);
-  
+      sessionStorage.setItem("user_id", result.user_id);
+      console.log(sessionStorage.getItem("user_id"));
       if (result.message === "Login successful!") {
         alert(result.message);
         window.location.href = "/client/wallet.html";
