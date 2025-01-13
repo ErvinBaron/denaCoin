@@ -1,3 +1,5 @@
+ 
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
@@ -12,7 +14,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import org.json.JSONObject;
-/*
+
 import java.util.UUID;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -23,7 +25,7 @@ import java.util.Base64;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-*/
+
 public class Main {
 
 	private static Connection dbConnection;
@@ -63,7 +65,7 @@ public class Main {
 	}
 	// initalize the DB
 	private static void initializeDatabase() throws SQLException, NoSuchAlgorithmException {
-		String url = "jdbc:sqlite:C:\\Users\\Ervin\\Desktop\\code\\denaCoin\\server\\src\\users.db1";
+		String url = "jdbc:sqlite:C:\\Users\\david\\eclipse-workspace\\denaCoin\\users.db1";
 		dbConnection = DriverManager.getConnection(url);
 		System.out.println("Connected to the database successfully.");
 		DB_Template.createTables();
