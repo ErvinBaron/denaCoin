@@ -70,7 +70,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const cryptoChart = new Chart(ctx, {
         type: 'line',
         data: data,
-        options: options,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+        }
     });
 
     // Modal elements

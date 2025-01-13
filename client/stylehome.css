@@ -20,7 +20,7 @@
 .main_container {
     width: auto;
     min-height: 0;
-    height: auto;
+    height: fit-content;
     background-color: #2E073F;
     padding: 2rem;
     border-radius: 12px;
@@ -87,7 +87,29 @@ video{
     /* width: 20%; */
     box-sizing: border-box;
 }
+@media screen and (max-width: 768px) {
+    /* Styles for tablets and mobile devices */
+    .main_container {
+        flex-direction: column;
+    }
 
+    .features_container {
+        flex-direction: column;
+    }
+
+    .box {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .auth-section .auth-button {
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
+    }
+}
 @media(min-width: 320px),(max-width:426){
     
     
@@ -108,9 +130,11 @@ video{
 
 }
 @media (max-width: 320px) {
-
+    .logo-text {
+        font-size: 1.5rem;
+    }
     .FTL_title {
-        font-size: 60px;
+        font-size: 2rem;
     }
 
     .ftl_paragh{
