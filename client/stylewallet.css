@@ -11,20 +11,24 @@
     padding: 2rem;
     border-radius: 12px;
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: column;
     gap: 2rem;
+    transition: height 0.3s ease;
 }
 .wallet_container {
     border-color: white;
     height: 100%;
-    width: 100%;
+    width: 75%;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 2rem;
     padding: 2rem;
+    margin: auto;
 }
-
+.main_container.expanded {
+    height: 180vh; /* Adjust this value as needed */
+}
 .hello_div {
     font-size: 2rem;
     color: #e0c8ff;
@@ -85,7 +89,7 @@
     height: 15%;
     background: rgba(224, 200, 255, 0.2);
     border-radius: 50%;
-    box-shadow: 0 0 10px rgba(224, 200, 255, 0.3);
+    box-shadow: 0 0 10px rgba(224, 200, 255, 0.3),0 0 -10px rgba(224, 200, 255, 0.3);
 }
 
 .balance_container {
@@ -120,6 +124,7 @@
     font-size: 1.1em;
     cursor: pointer;
     transition: all 0.3s ease;
+    margin-bottom: 1rem;
 }
 
 .transfer_button:hover {
@@ -133,6 +138,12 @@
     border-radius: 12px;
     width: 100%;
     max-width: 400px;
+    margin-bottom: 2rem;
+    display: none;
+    transition: display 0.3s ease;
+}
+.transfer_form.active {
+    display: block;
 }
 
 .transfer_form h3 {
@@ -149,9 +160,10 @@
 .transfer_form input {
     padding: 0.8rem;
     background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(224, 200, 255, 0.2);
+    border: none;
     border-radius: 8px;
     color: #fff;
+    cursor: pointer;
 }
 
 .transfer_form button {
@@ -166,11 +178,22 @@
 .history_container {
     width: 100%;
     max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+    background: rgba(46, 7, 63, 0.7);
+}
+
+.history_container thead {
+    text-align: center;
 }
 
 .history_container h3 {
     color: #e0c8ff;
     margin-bottom: 1rem;
+    text-align: center;
 }
 
 .history_table {
@@ -179,6 +202,7 @@
     background: rgba(46, 7, 63, 0.7);
     border-radius: 12px;
     overflow: hidden;
+    margin: 0 auto;
 }
 
 .history_table th, .history_table td {
@@ -186,6 +210,7 @@
     text-align: left;
     color: #fff;
     border-bottom: 1px solid rgba(224, 200, 255, 0.2);
+    text-align: center;
 }
 
 .history_table th {
