@@ -31,7 +31,7 @@ document
       // Handle server response
       if (result.user_id) {
         alert(result.message || "Registration successful!");
-        window.location.href = "/client/wallet.html";
+        window.location.href = "./wallet.html"; // Redirect to wallet page
       } else {
         alert(result.message || "register failed. Please try again.");
       }

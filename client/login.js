@@ -1,29 +1,4 @@
-// document
-//   .getElementById("loginForm")
-//   .addEventListener("submit", async (event) => {
-//     event.preventDefault();
 
-//     const email = document.getElementById("email").value;
-//     const password = document.getElementById("password").value;
-
-//     try {
-//       const encryptionKey = await requestEncryptionKey();
-//       const jsonData = JSON.stringify({ email, password }); //json object as string
-//       const dataEncryptionAES = await aesEncryption(jsonData, encryptionKey);
-//       const result = await sendLoginData(dataEncryptionAES);
-
-//       // Check if the login is successful
-//       if (result.message === "Login successful!") {
-//         alert(result.message); // Display success message
-//         window.location.href = "/client/wallet.html"; // Redirect to wallet page
-//       } else {
-//         alert(result.message || "Login failed. Please try again.");
-//       }
-//     } catch (error) {
-//       console.error("Failed to send data to server:", error);
-//       alert("Login failed! Please try again.");
-//     }
-//   });
 document.getElementById("loginForm").addEventListener("submit", async (event) => {
     event.preventDefault();
   
@@ -47,13 +22,12 @@ document.getElementById("loginForm").addEventListener("submit", async (event) =>
       // Step 3: Send encrypted data to the server
       const result = await sendLoginData(encrypted);
       
-      // Handle server response
-      sessionStorage.setItem("fname", result.fname);
-      sessionStorage.setItem("user_id", result.user_id);
-      console.log(sessionStorage.getItem("user_id"));
-      if (result.message === "Login successful!") {
-        alert(result.message);
-        window.location.href = "/client/wallet.html";
+      if (result.user_id) {
+        sessionStorage.setItem("fname", result.fname);
+        sessionStorage.setItem("user_id", result.user_id);
+        alert("Login successful!");
+        console.log(sessionStorage.getItem("user_id"));
+        window.location.href = "./wallet.html"; // Redirect to wallet page
       } else {
         alert(result.message || "Login failed. Please try again.");
       }
