@@ -4,28 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ca436c9-8581-43f3-831a-2112ae57c25f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/server/src/users.db1-journal" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" afterPath="$PROJECT_DIR$/.project" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/Contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/Contact.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/FAQ.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/FAQ.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/Legal.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/Legal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/buysell.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/buysell.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/coin.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/coin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/indexloggedin.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/indexloggedin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/transfer.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/transfer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/user.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/wallet.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/wallet.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/DB_Template.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/DB_Template.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/users.db1" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/users.db1" afterDir="false" />
-    </list>
+    <list default="true" id="9ca436c9-8581-43f3-831a-2112ae57c25f" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -75,7 +54,7 @@
       <option name="presentableId" value="Default" />
       <updated>1736762781685</updated>
       <workItem from="1736775930675" duration="5815000" />
-      <workItem from="1736798402602" duration="936000" />
+      <workItem from="1736798402602" duration="1421000" />
     </task>
     <servers />
   </component>
