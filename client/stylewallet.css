@@ -12,7 +12,7 @@
   border-radius: 12px;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 5px;
   transition: height 0.3s ease;
 }
 .wallet_container {
@@ -22,17 +22,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 15px;
   padding: 2rem;
   margin: auto;
 }
 .main_container.expanded {
-  height: 180vh; /* Adjust this value as needed */
+  height: 200vh; /* Adjust this value as needed */
 }
 .hello_div {
   font-size: 2rem;
   color: #e0c8ff;
   margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .balance_container {
@@ -68,8 +71,8 @@
   box-shadow: 0 0 20px rgba(224, 200, 255, 0.3);
 }
 .small-text {
-    font-size: 12px;
-  }
+  font-size: 12px;
+}
 .moon-circle::before {
   content: "";
   position: absolute;
@@ -372,12 +375,12 @@
 }
 
 .history_table th {
-  background-color: #007bff; /* Blue background */
+  background-color: #93198f; /* Blue background */
   color: white; /* White text */
 }
 
 .history_table tbody td {
-  color: white; /* White text for table rows */
+  color: rgb(190, 141, 171); /* White text for table rows */
 }
 
 .history_table tbody tr:nth-child(even) {
