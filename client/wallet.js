@@ -33,7 +33,8 @@ function updateUserName() {
   const id = sessionStorage.getItem("user_id");
 
   if (fname) {
-    helloDiv.innerHTML = `Hi, ${fname}!<br><span class="small-text">Wallet id: ${id}</span>`;
+    helloDiv.innerHTML = `<span style="font-size:50px">Hi, ${fname}!</span><br>
+      <span class="small-text">Wallet id: ${id}</span>`;
   } else {
     helloDiv.textContent = "Hi, Guest!";
     console.warn("First name not found in sessionStorage.");
