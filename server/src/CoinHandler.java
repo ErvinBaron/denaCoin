@@ -11,24 +11,65 @@ public class CoinHandler implements HttpHandler {
 
     private final Connection dbConnection;
 
-    public CoinHandler(Connection dbConnection) {    
+    public CoinHandler(Connection dbConnection) {
         this.dbConnection = dbConnection;
     }
-    
+
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        String path = exchange.getRequestURI().getPath();
+        try {
+            String path = exchange.getRequestURI().getPath();
 
-        if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
-            handlePostTransaction(exchange);
-        } else {
-            sendResponse(exchange, 405, new JSONObject().put("error", "Method Not Allowed"));
+            // Handle GET request for user balance
+            if ("GET".equalsIgnoreCase(exchange.getRequestMethod()) && path.contains("/user-balance/")) {
+                handleGetBalance(exchange);
+            }
+            // Handle POST request for transactions
+            else if ("POST".equalsIgnoreCase(exchange.getRequestMethod()) && path.endsWith("/transactions")) {
+                handlePostTransaction(exchange);
+            } else {
+                sendResponse(exchange, 405, new JSONObject().put("error", "Method Not Allowed"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            sendResponse(exchange, 500, new JSONObject().put("error", "Internal server error: " + e.getMessage()));
         }
     }
 
-    public void handlePostTransaction(HttpExchange exchange) throws IOException {
+    private void handleGetBalance(HttpExchange exchange) throws IOException {
+        String path = exchange.getRequestURI().getPath();
+        String userId = path.substring(path.lastIndexOf("/") + 1);
+
+        if (userId.isEmpty()) {
+            sendResponse(exchange, 400, new JSONObject().put("error", "Invalid userId"));
+            return;
+        }
+
+        try {
+            DB_Template dbTemplate = new DB_Template(dbConnection);
+            double balance = dbTemplate.getCoinBalance(userId);
+
+            if (balance == -1) {
+                sendResponse(exchange, 404, new JSONObject().put("error", "User not found"));
+                return;
+            }
+
+            sendResponse(exchange, 200, new JSONObject()
+                    .put("coin_balance", balance)
+                    .put("user_name", dbTemplate.getUserFirstName(userId)));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            sendResponse(exchange, 500, new JSONObject().put("error", "Database error: " + e.getMessage()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            sendResponse(exchange, 500, new JSONObject().put("error", "Unexpected error: " + e.getMessage()));
+        }
+    }
+
+    private void handlePostTransaction(HttpExchange exchange) throws IOException {
         String body = new String(exchange.getRequestBody().readAllBytes());
-        
+        System.out.println("Received POST body: " + body);
+
         JSONObject requestJson;
         try {
             requestJson = new JSONObject(body);
@@ -36,41 +77,49 @@ public class CoinHandler implements HttpHandler {
             sendResponse(exchange, 400, new JSONObject().put("error", "Invalid JSON format"));
             return;
         }
+
         String userId = requestJson.optString("userId", null);
         int amount = requestJson.optInt("amount", -1);
-        String action = requestJson.optString("action", null);  // buy or sell
-        
+        String action = requestJson.optString("action", null);
+
         if (userId == null || userId.isEmpty() || amount <= 0 || action == null || (!action.equals("buy") && !action.equals("sell"))) {
             sendResponse(exchange, 400, new JSONObject().put("error", "Invalid userId, amount, or action"));
             return;
         }
-        
+
         try {
             DB_Template dbTemplate = new DB_Template(dbConnection);
-            
-            boolean success;
-            if ("buy".equals(action)) {
-                success = dbTemplate.change_wallet_coin_balance(userId, amount);  // buy
-            } else { 
-                success = dbTemplate.change_wallet_coin_balance(userId, -amount);  // sell if this negative
-            }
-            
-            if (success) {
-                sendResponse(exchange, 200, new JSONObject().put("message", action.equals("buy") ? "Coins purchased successfully" : "Coins sold successfully"));
-            } else {
-                sendResponse(exchange, 500, new JSONObject().put("error", "Failed to update wallet balance"));
-            }
+            // קריאה למתודה `buyAndSell` עם שלושה ארגומנטים (userId, amount, isBuy)
+            boolean isBuy = action.equals("buy");
+            dbTemplate.buyAndSell(userId, amount, isBuy);
+
+            double newBalance = dbTemplate.getCoinBalance(userId);
+            JSONObject response = new JSONObject()
+                    .put("message", isBuy ? "Coins purchased successfully" : "Coins sold successfully")
+                    .put("amount", amount)
+                    .put("new_balance", newBalance);
+
+            sendResponse(exchange, 200, response);
         } catch (SQLException e) {
-            sendResponse(exchange, 500, new JSONObject().put("error", "Database error"));
+            e.printStackTrace();
+            sendResponse(exchange, 500, new JSONObject().put("error", "Database error: " + e.getMessage()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            sendResponse(exchange, 500, new JSONObject().put("error", "Unexpected error: " + e.getMessage()));
         }
     }
-    
+
     private static void sendResponse(HttpExchange exchange, int statusCode, JSONObject responseJson) throws IOException {
+        exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
+
         String response = responseJson.toString();
-        exchange.getResponseHeaders().add("Content-Type", "application/json; charset=UTF-8");
+        System.out.println("Sending response: " + response);
+
         exchange.sendResponseHeaders(statusCode, response.getBytes().length);
         try (OutputStream os = exchange.getResponseBody()) {
             os.write(response.getBytes());
         }
     }
+
 }

@@ -818,6 +818,42 @@ a:hover {
   fill: #71192F;
 }
 
+.success-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+      transform: translateX(100%);
+      opacity: 0;
+  }
+  to {
+      transform: translateX(0);
+      opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+      transform: translateX(0);
+      opacity: 1;
+  }
+  to {
+      transform: translateX(100%);
+      opacity: 0;
+  }
+}
 /* Add slide in animation */
 @keyframes slideIn {
   from {
