@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class DB_Template {
-	private static String url = "jdbc:sqlite:C:\\Users\\Ervin\\Desktop\\code\\denaCoin\\server\\src\\users.db1"; // The database file name
+	private static String url = "jdbc:sqlite:C:\\Users\\david\\eclipse-workspace\\denaCoin\\users.db1"; // The database file name
 	private static Connection conn ;
 
 	
